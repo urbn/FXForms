@@ -16,7 +16,6 @@
 		0169995618A1663700E7085F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0169995518A1663700E7085F /* main.m */; };
 		0169995A18A1663700E7085F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0169995918A1663700E7085F /* AppDelegate.m */; };
 		0169995C18A1663700E7085F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0169995B18A1663700E7085F /* Images.xcassets */; };
-		0169997B18A1664800E7085F /* FXForms.m in Sources */ = {isa = PBXBuildFile; fileRef = 0169997A18A1664800E7085F /* FXForms.m */; };
 		0178250818E1A0AE004C3815 /* RootFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0178250718E1A0AE004C3815 /* RootFormViewController.m */; };
 		01C0532518A27F4F00EEA858 /* LoginForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 01C0532418A27F4F00EEA858 /* LoginForm.m */; };
 		01CB2DD718CBAA010069FC4A /* TermsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01CB2DD518CBAA010069FC4A /* TermsViewController.m */; };
@@ -24,6 +23,11 @@
 		01CB2DDC18CBB28C0069FC4A /* PrivacyPolicyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01CB2DDA18CBB28C0069FC4A /* PrivacyPolicyViewController.m */; };
 		01CB2DDD18CBB28C0069FC4A /* PrivacyPolicyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01CB2DDB18CBB28C0069FC4A /* PrivacyPolicyViewController.xib */; };
 		CC566AAC18D76956002F2751 /* ISO3166CountryValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = CC566AAB18D76956002F2751 /* ISO3166CountryValueTransformer.m */; };
+		D8C2E6431A964C4700933EF3 /* FXFormField.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C2E6421A964C4700933EF3 /* FXFormField.m */; };
+		D8C2E6461A964CA200933EF3 /* FXFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C2E6451A964CA200933EF3 /* FXFormController.m */; };
+		D8C2E6491A964CDC00933EF3 /* FXFormsDefines.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C2E6481A964CDC00933EF3 /* FXFormsDefines.m */; };
+		D8C2E64C1A964F4D00933EF3 /* FXFormTableCells.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C2E64B1A964F4D00933EF3 /* FXFormTableCells.m */; };
+		D8C2E64F1A96528600933EF3 /* FXFormModels.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C2E64E1A96528600933EF3 /* FXFormModels.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,7 +48,6 @@
 		0169995B18A1663700E7085F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		0169996218A1663700E7085F /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		0169997918A1664800E7085F /* FXForms.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXForms.h; sourceTree = "<group>"; };
-		0169997A18A1664800E7085F /* FXForms.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXForms.m; sourceTree = "<group>"; };
 		0178250618E1A0AE004C3815 /* RootFormViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootFormViewController.h; sourceTree = "<group>"; };
 		0178250718E1A0AE004C3815 /* RootFormViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootFormViewController.m; sourceTree = "<group>"; };
 		01C0532318A27F4F00EEA858 /* LoginForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginForm.h; sourceTree = "<group>"; };
@@ -57,6 +60,17 @@
 		01CB2DDB18CBB28C0069FC4A /* PrivacyPolicyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PrivacyPolicyViewController.xib; sourceTree = "<group>"; };
 		CC566AAA18D76956002F2751 /* ISO3166CountryValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISO3166CountryValueTransformer.h; sourceTree = "<group>"; };
 		CC566AAB18D76956002F2751 /* ISO3166CountryValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISO3166CountryValueTransformer.m; sourceTree = "<group>"; };
+		D8C2E6401A96483D00933EF3 /* FXFormsProtocols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXFormsProtocols.h; sourceTree = "<group>"; };
+		D8C2E6411A964C4700933EF3 /* FXFormField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXFormField.h; sourceTree = "<group>"; };
+		D8C2E6421A964C4700933EF3 /* FXFormField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXFormField.m; sourceTree = "<group>"; };
+		D8C2E6441A964CA200933EF3 /* FXFormController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXFormController.h; sourceTree = "<group>"; };
+		D8C2E6451A964CA200933EF3 /* FXFormController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXFormController.m; sourceTree = "<group>"; };
+		D8C2E6471A964CDC00933EF3 /* FXFormsDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXFormsDefines.h; sourceTree = "<group>"; };
+		D8C2E6481A964CDC00933EF3 /* FXFormsDefines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXFormsDefines.m; sourceTree = "<group>"; };
+		D8C2E64A1A964F4D00933EF3 /* FXFormTableCells.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXFormTableCells.h; sourceTree = "<group>"; };
+		D8C2E64B1A964F4D00933EF3 /* FXFormTableCells.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXFormTableCells.m; sourceTree = "<group>"; };
+		D8C2E64D1A96528600933EF3 /* FXFormModels.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXFormModels.h; sourceTree = "<group>"; };
+		D8C2E64E1A96528600933EF3 /* FXFormModels.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXFormModels.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,8 +142,18 @@
 		0169997818A1664800E7085F /* FXForms */ = {
 			isa = PBXGroup;
 			children = (
+				D8C2E6401A96483D00933EF3 /* FXFormsProtocols.h */,
 				0169997918A1664800E7085F /* FXForms.h */,
-				0169997A18A1664800E7085F /* FXForms.m */,
+				D8C2E6411A964C4700933EF3 /* FXFormField.h */,
+				D8C2E6421A964C4700933EF3 /* FXFormField.m */,
+				D8C2E6441A964CA200933EF3 /* FXFormController.h */,
+				D8C2E6451A964CA200933EF3 /* FXFormController.m */,
+				D8C2E6471A964CDC00933EF3 /* FXFormsDefines.h */,
+				D8C2E6481A964CDC00933EF3 /* FXFormsDefines.m */,
+				D8C2E64A1A964F4D00933EF3 /* FXFormTableCells.h */,
+				D8C2E64B1A964F4D00933EF3 /* FXFormTableCells.m */,
+				D8C2E64D1A96528600933EF3 /* FXFormModels.h */,
+				D8C2E64E1A96528600933EF3 /* FXFormModels.m */,
 			);
 			name = FXForms;
 			path = ../../FXForms;
@@ -241,13 +265,17 @@
 			files = (
 				CC566AAC18D76956002F2751 /* ISO3166CountryValueTransformer.m in Sources */,
 				0169995A18A1663700E7085F /* AppDelegate.m in Sources */,
+				D8C2E6431A964C4700933EF3 /* FXFormField.m in Sources */,
 				0178250818E1A0AE004C3815 /* RootFormViewController.m in Sources */,
-				0169997B18A1664800E7085F /* FXForms.m in Sources */,
 				0169995618A1663700E7085F /* main.m in Sources */,
 				01CB2DD718CBAA010069FC4A /* TermsViewController.m in Sources */,
+				D8C2E64F1A96528600933EF3 /* FXFormModels.m in Sources */,
+				D8C2E6491A964CDC00933EF3 /* FXFormsDefines.m in Sources */,
+				D8C2E6461A964CA200933EF3 /* FXFormController.m in Sources */,
 				01C0532518A27F4F00EEA858 /* LoginForm.m in Sources */,
 				01CB2DDC18CBB28C0069FC4A /* PrivacyPolicyViewController.m in Sources */,
 				0168186B18C5E7F400273F1C /* RegistrationForm.m in Sources */,
+				D8C2E64C1A964F4D00933EF3 /* FXFormTableCells.m in Sources */,
 				0168186818C5E7AF00273F1C /* RootForm.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -409,8 +437,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Classes/BasicExample-Prefix.pch";
+				GCC_WARN_PEDANTIC = YES;
 				INFOPLIST_FILE = "Classes/BasicExample-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -423,8 +454,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Classes/BasicExample-Prefix.pch";
+				GCC_WARN_PEDANTIC = YES;
 				INFOPLIST_FILE = "Classes/BasicExample-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";

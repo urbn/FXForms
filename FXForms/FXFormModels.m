@@ -40,7 +40,7 @@
                 [formController enumerateFieldsWithBlock:^(FXFormField *f, NSIndexPath *indexPath) {
                     if ([f.key isEqual:field.key])
                     {
-                        field.action([formController.tableView cellForRowAtIndexPath:indexPath]);
+                        field.action([formController cellForRowAtIndexPath:indexPath]);
                     }
                 }];
             }
@@ -138,25 +138,18 @@
         
         FXFormField *field = cell.field;
         FXFormController *formController = field.formController;
-        UITableView *tableView = formController.tableView;
         
-        [tableView beginUpdates];
-        
-        NSIndexPath *indexPath = [tableView indexPathForCell:cell];
+        NSIndexPath *indexPath = [formController indexPathForField:cell.field];
         FXFormSection *section = formController.sections[indexPath.section];
-        [section addNewField];
         
-        [tableView deselectRowAtIndexPath:indexPath animated:YES];
-        [tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-        
-        [tableView endUpdates];
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-            [formController tableView:tableView didSelectRowAtIndexPath:indexPath];
-            [tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
-        });
-        
+        [formController performUpdates:^{
+            [section addNewField];
+            [formController deselectRowAtIndexPath:indexPath animated:YES];
+            [formController insertRowsAtIndexPaths:@[indexPath]];
+        } withCompletion:^{
+            [formController didSelectRowAtIndexPath:indexPath];
+            [formController selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
+        }];
     }}];
     
     //converts values to an ordered array
@@ -367,21 +360,21 @@
 
 - (void)addNewField
 {
-    FXFormController *controller = [[_fields lastObject] formController];
+    FXFormController *controller = [(FXFormField *)[_fields lastObject] formController];
     [(FXTemplateForm *)self.form addNewField];
     [_fields setArray:[FXFormField fieldsWithForm:self.form controller:controller]];
 }
 
 - (void)removeFieldAtIndex:(NSUInteger)index
 {
-    FXFormController *controller = [[_fields lastObject] formController];
+    FXFormController *controller = [(FXFormField *)[_fields lastObject] formController];
     [(FXTemplateForm *)self.form removeFieldAtIndex:index];
     [_fields setArray:[FXFormField fieldsWithForm:self.form controller:controller]];
 }
 
 - (void)moveFieldAtIndex:(NSUInteger)index1 toIndex:(NSUInteger)index2
 {
-    FXFormController *controller = [[_fields lastObject] formController];
+    FXFormController *controller = [(FXFormField *)[_fields lastObject] formController];
     [(FXTemplateForm *)self.form moveFieldAtIndex:index1 toIndex:index2];
     [_fields setArray:[FXFormField fieldsWithForm:self.form controller:controller]];
 }

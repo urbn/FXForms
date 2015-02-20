@@ -10,6 +10,7 @@
 #import "FXFormsDefines.h"
 #import "FXFormField.h"
 #import "FXFormController.h"
+#import "FXTableFormController.h"
 
 #pragma clang diagnostic ignored "-Wobjc-missing-property-synthesis"
 #pragma clang diagnostic ignored "-Wdirect-ivar-access"
@@ -256,7 +257,7 @@
         }
         else
         {
-            subcontroller = [[self.field.viewController ?: [FXFormViewController class] alloc] init];
+            subcontroller = [[self.field.viewController ?: [FXFormTableViewController class] alloc] init];
             ((id <FXFormFieldViewController>)subcontroller).field = self.field;
         }
         if (!subcontroller.title) subcontroller.title = self.field.title;

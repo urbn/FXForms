@@ -31,9 +31,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "FXFormsProtocols.h"
 #import "FXFormsDefines.h"
+#import "FXFormsProtocols.h"
+
 #import "FXFormField.h"
-#import "FXFormController.h"
-#import "FXFormTableCells.h"
 #import "FXFormModels.h"
+
+#import "FXFormController.h"
+#import "FXTableFormController.h"
+
+#import "FXFormTableCells.h"

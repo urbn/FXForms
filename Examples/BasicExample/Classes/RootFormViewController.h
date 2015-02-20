@@ -8,6 +8,6 @@
 
 #import "FXForms.h"
 
-@interface RootFormViewController : FXFormViewController
+@interface RootFormViewController : FXFormTableViewController
 
 @end

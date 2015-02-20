@@ -11,26 +11,8 @@
 #import "FXFormField.h"
 #import "FXFormModels.h"
 #import "FXFormTableCells.h"
-
-#pragma clang diagnostic ignored "-Wobjc-missing-property-synthesis"
-#pragma clang diagnostic ignored "-Wdirect-ivar-access"
-#pragma clang diagnostic ignored "-Warc-repeated-use-of-weak"
-#pragma clang diagnostic ignored "-Wreceiver-is-weak"
-#pragma clang diagnostic ignored "-Wconversion"
-#pragma clang diagnostic ignored "-Wgnu"
-
-@interface FXFormController () <UITableViewDataSource, UITableViewDelegate>
-
-@property (nonatomic, strong) NSMutableDictionary *cellHeightCache;
-@property (nonatomic, strong) NSMutableDictionary *cellClassesForFieldTypes;
-@property (nonatomic, strong) NSMutableDictionary *cellClassesForFieldClasses;
-@property (nonatomic, strong) NSMutableDictionary *controllerClassesForFieldTypes;
-@property (nonatomic, strong) NSMutableDictionary *controllerClassesForFieldClasses;
-
-
-- (UIViewController *)tableViewController;
-
-@end
+#import "FXFormController_Private.h"
+#import "FXTableFormController.h"
 
 
 @implementation FXFormController
@@ -57,7 +39,7 @@
                                        FXFormFieldTypeDateTime: [FXFormDatePickerCell class],
                                        FXFormFieldTypeImage: [FXFormImagePickerCell class]} mutableCopy];
         _cellClassesForFieldClasses = [NSMutableDictionary dictionary];
-        _controllerClassesForFieldTypes = [@{FXFormFieldTypeDefault: [FXFormViewController class]} mutableCopy];
+        _controllerClassesForFieldTypes = [@{FXFormFieldTypeDefault: [FXTableFormController class]} mutableCopy];
         _controllerClassesForFieldClasses = [NSMutableDictionary dictionary];
         
         [[NSNotificationCenter defaultCenter] addObserver:self
@@ -75,12 +57,10 @@
 
 - (void)dealloc
 {
-    _tableView.dataSource = nil;
-    _tableView.delegate = nil;
-    
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+#pragma mark - Cell Registrations
 - (Class)cellClassForField:(FXFormField *)field
 {
     if (field.type != FXFormFieldTypeDefault)
@@ -167,15 +147,23 @@
     self.controllerClassesForFieldClasses[NSStringFromClass(fieldClass)] = controllerClass;
 }
 
-- (void)setDelegate:(id<FXFormControllerDelegate>)delegate
+#pragma mark - Setters
+- (void)setForm:(id<FXForm>)form
 {
-    _delegate = delegate;
-    
-    //force table to update respondsToSelector: cache
-    self.tableView.delegate = nil;
-    self.tableView.delegate = self;
+    _form = form;
+    self.sections = [FXFormSection sectionsWithForm:form controller:self];
 }
 
+#pragma mark - Getters
+- (UICollectionView *)collectionView {
+    return [self.scrollView isKindOfClass:[UICollectionView class]] ? (UICollectionView *)self.scrollView : nil;
+}
+
+- (UITableView *)tableView {
+    return [self.scrollView isKindOfClass:[UITableView class]] ? (UITableView *)self.scrollView : nil;
+}
+
+#pragma mark - Method Forwarding
 - (BOOL)respondsToSelector:(SEL)selector
 {
     return [super respondsToSelector:selector] || [self.delegate respondsToSelector:selector];
@@ -186,36 +174,7 @@
     [invocation invokeWithTarget:self.delegate];
 }
 
-- (void)setTableView:(UITableView *)tableView
-{
-    _tableView = tableView;
-    self.tableView.dataSource = self;
-    self.tableView.delegate = self;
-    self.tableView.editing = YES;
-    self.tableView.allowsSelectionDuringEditing = YES;
-    [self.tableView reloadData];
-}
-
-- (UIViewController *)tableViewController
-{
-    id responder = self.tableView;
-    while (responder)
-    {
-        if ([responder isKindOfClass:[UIViewController class]])
-        {
-            return responder;
-        }
-        responder = [responder nextResponder];
-    }
-    return nil;
-}
-
-- (void)setForm:(id<FXForm>)form
-{
-    _form = form;
-    self.sections = [FXFormSection sectionsWithForm:form controller:self];
-}
-
+#pragma mark - datasource
 - (NSUInteger)numberOfSections
 {
     return [self.sections count];
@@ -251,8 +210,102 @@
     return nil;
 }
 
-- (void)enumerateFieldsWithBlock:(void (^)(FXFormField *field, NSIndexPath *indexPath))block
+- (id <FXFormFieldCell>)cellForField:(FXFormField *)field
 {
+    //don't recycle cells - it would make things complicated
+    Class cellClass = field.cellClass ?: [self cellClassForField:field];
+    NSString *nibName = NSStringFromClass(cellClass);
+    if ([[NSBundle mainBundle] pathForResource:nibName ofType:@"nib"])
+    {
+        //load cell from nib
+        return [[[NSBundle mainBundle] loadNibNamed:nibName owner:nil options:nil] firstObject];
+    }
+    else
+    {
+        //hackity-hack-hack
+        UITableViewCellStyle style = UITableViewCellStyleDefault;
+        if ([field valueForKeyPath:@"style"])
+        {
+            style = [[field valueForKeyPath:@"style"] integerValue];
+        }
+        else if (FXFormCanGetValueForKey(field.form, field.key))
+        {
+            style = UITableViewCellStyleValue1;
+        }
+        
+        //don't recycle cells - it would make things complicated
+        return [[cellClass alloc] initWithStyle:style reuseIdentifier:NSStringFromClass(cellClass)];
+    }
+}
+
+- (id<FXFormFieldCell>)cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    // This is acceptable since the performUIChange method isn't asynchronous
+    __block id cell = nil;
+    [self performUIChange:^(UITableView *tableView) {
+        cell = (id<FXFormFieldCell>)[tableView cellForRowAtIndexPath:indexPath];
+    } collection:^(UICollectionView *collectionView) {
+        cell = [collectionView cellForItemAtIndexPath:indexPath];
+    }];
+    return cell;
+}
+
+#pragma mark - Actions
+- (void)performUIChange:(void(^)(UITableView *tableView))tableViewBlock collection:(void(^)(UICollectionView *collectionView))collectionViewBlock {
+    if ([self tableView]) {
+        tableViewBlock([self tableView]);
+    } else if ([self collectionView]) {
+        collectionViewBlock([self collectionView]);
+    }
+}
+
+- (void)performUpdates:(void(^)())updatesBlock withCompletion:(void(^)())completion {
+    [self performUIChange:^(UITableView *tableView) {
+        [CATransaction begin];
+        [CATransaction setCompletionBlock:completion];
+        [tableView beginUpdates];
+        if (updatesBlock) {
+            updatesBlock();
+        }
+        [tableView endUpdates];
+        [CATransaction commit];
+    } collection:^(UICollectionView *collectionView) {
+        [collectionView performBatchUpdates:updatesBlock completion:^(__unused BOOL finished) {
+            if (completion) {
+                completion();
+            }
+        }];
+    }];
+}
+
+- (void)deselectRowAtIndexPath:(NSIndexPath *)indexPath animated:(BOOL)animated {
+    [self performUIChange:^(UITableView *tableView) {
+        [tableView deselectRowAtIndexPath:indexPath animated:animated];
+    } collection:^(UICollectionView *collectionView) {
+        [collectionView deselectItemAtIndexPath:indexPath animated:animated];
+    }];
+}
+
+- (void)selectRowAtIndexPath:(NSIndexPath *)indexPath animated:(BOOL)animated scrollPosition:(UITableViewScrollPosition)scrollPosition {
+    [self performUIChange:^(UITableView *tableView) {
+        [tableView selectRowAtIndexPath:indexPath animated:animated scrollPosition:scrollPosition];
+    } collection:^(UICollectionView *collectionView) {
+        [collectionView selectItemAtIndexPath:indexPath animated:animated scrollPosition:scrollPosition];
+    }];
+}
+
+- (void)didSelectRowAtIndexPath:(__unused NSIndexPath *)indexPath {
+    
+}
+
+- (void)insertRowsAtIndexPaths:(NSArray *)indexPaths {
+    [self performUIChange:^(UITableView *tableView) {
+        [tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
+    } collection:^(UICollectionView *collectionView) {
+        [collectionView insertItemsAtIndexPaths:indexPaths];
+    }];
+}
+
+- (void)enumerateFieldsWithBlock:(void (^)(FXFormField *field, NSIndexPath *indexPath))block {
     NSUInteger sectionIndex = 0;
     for (FXFormSection *section in self.sections)
     {
@@ -272,7 +325,7 @@
 - (void)performAction:(SEL)selector withSender:(id)sender
 {
     //walk up responder chain
-    id responder = self.tableView;
+    id responder = self.scrollView;
     while (responder)
     {
         if ([responder respondsToSelector:selector])
@@ -301,262 +354,10 @@
     }
 }
 
-#pragma mark -
-#pragma mark Datasource methods
-
-- (NSInteger)numberOfSectionsInTableView:(__unused UITableView *)tableView
-{
-    return [self numberOfSections];
-}
-
-- (NSString *)tableView:(__unused UITableView *)tableView titleForHeaderInSection:(NSInteger)index
-{
-    return [[self sectionAtIndex:index].header description];
-}
-
-- (NSString *)tableView:(__unused UITableView *)tableView titleForFooterInSection:(NSInteger)index
-{
-    return [[self sectionAtIndex:index].footer description];
-}
-
-- (NSInteger)tableView:(__unused UITableView *)tableView numberOfRowsInSection:(NSInteger)index
-{
-    return [self numberOfFieldsInSection:index];
-}
-
-- (UITableViewCell *)cellForField:(FXFormField *)field
-{
-    //don't recycle cells - it would make things complicated
-    Class cellClass = field.cellClass ?: [self cellClassForField:field];
-    NSString *nibName = NSStringFromClass(cellClass);
-    if ([[NSBundle mainBundle] pathForResource:nibName ofType:@"nib"])
-    {
-        //load cell from nib
-        return [[[NSBundle mainBundle] loadNibNamed:nibName owner:nil options:nil] firstObject];
-    }
-    else
-    {
-        //hackity-hack-hack
-        UITableViewCellStyle style = UITableViewCellStyleDefault;
-        if ([field valueForKeyPath:@"style"])
-        {
-            style = [[field valueForKeyPath:@"style"] integerValue];
-        }
-        else if (FXFormCanGetValueForKey(field.form, field.key))
-        {
-            style = UITableViewCellStyleValue1;
-        }
-        
-        //don't recycle cells - it would make things complicated
-        return [[cellClass alloc] initWithStyle:style reuseIdentifier:NSStringFromClass(cellClass)];
-    }
-}
-
-- (CGFloat)tableView:(__unused UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    FXFormField *field = [self fieldForIndexPath:indexPath];
-    Class cellClass = field.cellClass ?: [self cellClassForField:field];
-    if ([cellClass respondsToSelector:@selector(heightForField:width:)])
-    {
-        return [cellClass heightForField:field width:self.tableView.frame.size.width];
-    }
-    
-    NSString *className = NSStringFromClass(cellClass);
-    NSNumber *cachedHeight = _cellHeightCache[className];
-    if (!cachedHeight)
-    {
-        UITableViewCell *cell = [self cellForField:field];
-        cachedHeight = @(cell.bounds.size.height);
-        _cellHeightCache[className] = cachedHeight;
-    }
-    
-    return [cachedHeight floatValue];
-}
-
-- (UITableViewCell *)tableView:(__unused UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return [self cellForField:[self fieldForIndexPath:indexPath]];
-}
-
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete)
-    {
-        [tableView beginUpdates];
-        
-        FXFormSection *section = [self sectionAtIndex:indexPath.section];
-        [section removeFieldAtIndex:indexPath.row];
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-        
-        [tableView endUpdates];
-    }
-}
-
-- (void)tableView:(__unused UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath
-{
-    FXFormSection *section = [self sectionAtIndex:sourceIndexPath.section];
-    [section moveFieldAtIndex:sourceIndexPath.row toIndex:destinationIndexPath.row];
-}
-
-- (NSIndexPath *)tableView:(__unused UITableView *)tableView targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath
-{
-    FXFormSection *section = [self sectionAtIndex:sourceIndexPath.section];
-    if (sourceIndexPath.section == proposedDestinationIndexPath.section &&
-        proposedDestinationIndexPath.row < (NSInteger)[section.fields count] - 1)
-    {
-        return proposedDestinationIndexPath;
-    }
-    return sourceIndexPath;
-}
-
-- (BOOL)tableView:(__unused UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    FXFormSection *section = [self sectionAtIndex:indexPath.section];
-    if ([section.form isKindOfClass:[FXTemplateForm class]])
-    {
-        if (indexPath.row < (NSInteger)[section.fields count] - 1)
-        {
-            FXFormField *field = ((FXTemplateForm *)section.form).field;
-            return [field isOrderedCollectionType] && field.isSortable;
-        }
-    }
-    return NO;
-}
-
-#pragma mark -
-#pragma mark Delegate methods
-
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)index
-{
-    //forward to delegate
-    if ([self.delegate respondsToSelector:_cmd])
-    {
-        return [self.delegate tableView:tableView viewForHeaderInSection:index];
-    }
-    
-    //handle view or class
-    id header = [self sectionAtIndex:index].header;
-    if ([header isKindOfClass:[UIView class]])
-    {
-        return header;
-    }
-    return nil;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)index
-{
-    //forward to delegate
-    if ([self.delegate respondsToSelector:_cmd])
-    {
-        return [self.delegate tableView:tableView heightForHeaderInSection:index];
-    }
-    
-    //handle view or class
-    UIView *header = [self sectionAtIndex:index].header;
-    if ([header isKindOfClass:[UIView class]])
-    {
-        return header.frame.size.height ?: UITableViewAutomaticDimension;
-    }
-    return UITableViewAutomaticDimension;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)index
-{
-    //forward to delegate
-    if ([self.delegate respondsToSelector:_cmd])
-    {
-        return [self.delegate tableView:tableView viewForFooterInSection:index];
-    }
-    
-    //handle view or class
-    id footer = [self sectionAtIndex:index].footer;
-    if ([footer isKindOfClass:[UIView class]])
-    {
-        return footer;
-    }
-    return nil;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)index
-{
-    //forward to delegate
-    if ([self.delegate respondsToSelector:_cmd])
-    {
-        return [self.delegate tableView:tableView heightForFooterInSection:index];
-    }
-    
-    //handle view or class
-    UIView *footer = [self sectionAtIndex:index].footer;
-    if ([footer isKindOfClass:[UIView class]])
-    {
-        return footer.frame.size.height ?: UITableViewAutomaticDimension;
-    }
-    return UITableViewAutomaticDimension;
-}
-
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    FXFormField *field = [self fieldForIndexPath:indexPath];
-    
-    //configure cell before setting field (in case it affects how value is displayed)
-    [field.cellConfig enumerateKeysAndObjectsUsingBlock:^(NSString *keyPath, id value, __unused BOOL *stop) {
-        [cell setValue:value forKeyPath:keyPath];
-    }];
-    
-    //set form field
-    ((id<FXFormFieldCell>)cell).field = field;
-    
-    //configure cell after setting field as well (not ideal, but allows overriding keyboard attributes, etc)
-    [field.cellConfig enumerateKeysAndObjectsUsingBlock:^(NSString *keyPath, id value, __unused BOOL *stop) {
-        [cell setValue:value forKeyPath:keyPath];
-    }];
-    
-    //forward to delegate
-    if ([self.delegate respondsToSelector:_cmd])
-    {
-        [self.delegate tableView:tableView willDisplayCell:cell forRowAtIndexPath:indexPath];
-    }
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    //forward to cell
-    UITableViewCell<FXFormFieldCell> *cell = (UITableViewCell<FXFormFieldCell> *)[tableView cellForRowAtIndexPath:indexPath];
-    if ([cell respondsToSelector:@selector(didSelectWithTableView:controller:)])
-    {
-        [cell didSelectWithTableView:tableView controller:[self tableViewController]];
-    }
-    
-    //forward to delegate
-    if ([self.delegate respondsToSelector:@selector(tableView:didSelectRowAtIndexPath:)])
-    {
-        [self.delegate tableView:tableView didSelectRowAtIndexPath:indexPath];
-    }
-}
-
-- (UITableViewCellEditingStyle)tableView:(__unused UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    FXFormSection *section = [self sectionAtIndex:indexPath.section];
-    if ([section.form isKindOfClass:[FXTemplateForm class]])
-    {
-        if (indexPath.row == (NSInteger)[section.fields count] - 1)
-        {
-            return UITableViewCellEditingStyleInsert;
-        }
-        return UITableViewCellEditingStyleDelete;
-    }
-    return UITableViewCellEditingStyleNone;
-}
-
-- (BOOL)tableView:(__unused UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(__unused NSIndexPath *)indexPath
-{
-    return NO;
-}
-
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
     //dismiss keyboard
-    [FXFormsFirstResponder(self.tableView) resignFirstResponder];
+    [FXFormsFirstResponder(self.scrollView) resignFirstResponder];
     
     //forward to delegate
     if ([self.delegate respondsToSelector:_cmd])
@@ -568,160 +369,68 @@
 #pragma mark -
 #pragma mark Keyboard events
 
-- (UITableViewCell *)cellContainingView:(UIView *)view
+- (id<FXFormFieldCell>)cellContainingView:(UIView *)view
 {
     if (view == nil || [view isKindOfClass:[UITableViewCell class]])
     {
-        return (UITableViewCell *)view;
+        return (id<FXFormFieldCell>)view;
     }
     return [self cellContainingView:view.superview];
 }
 
 - (void)keyboardWillShow:(NSNotification *)note
 {
-    UITableViewCell *cell = [self cellContainingView:FXFormsFirstResponder(self.tableView)];
+    id <FXFormFieldCell> cell = [self cellContainingView:FXFormsFirstResponder(self.scrollView)];
     if (cell && ![self.delegate isKindOfClass:[UITableViewController class]])
     {
         NSDictionary *keyboardInfo = [note userInfo];
         CGRect keyboardFrame = [keyboardInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
-        keyboardFrame = [self.tableView.window convertRect:keyboardFrame toView:self.tableView.superview];
-        CGFloat inset = self.tableView.frame.origin.y + self.tableView.frame.size.height - keyboardFrame.origin.y;
+        keyboardFrame = [self.scrollView.window convertRect:keyboardFrame toView:self.scrollView.superview];
+        CGFloat inset = self.scrollView.frame.origin.y + self.scrollView.frame.size.height - keyboardFrame.origin.y;
         
-        UIEdgeInsets tableContentInset = self.tableView.contentInset;
+        UIEdgeInsets tableContentInset = self.scrollView.contentInset;
         tableContentInset.bottom = inset;
         
-        UIEdgeInsets tableScrollIndicatorInsets = self.tableView.scrollIndicatorInsets;
+        UIEdgeInsets tableScrollIndicatorInsets = self.scrollView.scrollIndicatorInsets;
         tableScrollIndicatorInsets.bottom = inset;
         
         //animate insets
         [UIView beginAnimations:nil context:nil];
         [UIView setAnimationCurve:(UIViewAnimationCurve)keyboardInfo[UIKeyboardAnimationCurveUserInfoKey]];
         [UIView setAnimationDuration:[keyboardInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue]];
-        self.tableView.contentInset = tableContentInset;
-        self.tableView.scrollIndicatorInsets = tableScrollIndicatorInsets;
-        NSIndexPath *selectedRow = [self.tableView indexPathForCell:cell];
-        [self.tableView scrollToRowAtIndexPath:selectedRow atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+        self.scrollView.contentInset = tableContentInset;
+        self.scrollView.scrollIndicatorInsets = tableScrollIndicatorInsets;
+        NSIndexPath *indexPath = [self indexPathForField:cell.field];
+        [self performUIChange:^(UITableView *tableView) {
+            [tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+        } collection:^(UICollectionView *collectionView) {
+            [collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionBottom animated:NO];
+        }];
         [UIView commitAnimations];
     }
 }
 
 - (void)keyboardWillHide:(NSNotification *)note
 {
-    UITableViewCell *cell = [self cellContainingView:FXFormsFirstResponder(self.tableView)];
+    id <FXFormFieldCell> cell = [self cellContainingView:FXFormsFirstResponder(self.scrollView)];
     if (cell && ![self.delegate isKindOfClass:[UITableViewController class]])
     {
         NSDictionary *keyboardInfo = [note userInfo];
         
-        UIEdgeInsets tableContentInset = self.tableView.contentInset;
+        UIEdgeInsets tableContentInset = self.scrollView.contentInset;
         tableContentInset.bottom = 0;
         
-        UIEdgeInsets tableScrollIndicatorInsets = self.tableView.scrollIndicatorInsets;
+        UIEdgeInsets tableScrollIndicatorInsets = self.scrollView.scrollIndicatorInsets;
         tableScrollIndicatorInsets.bottom = 0;
         
         //restore insets
         [UIView beginAnimations:nil context:nil];
         [UIView setAnimationCurve:(UIViewAnimationCurve)keyboardInfo[UIKeyboardAnimationCurveUserInfoKey]];
         [UIView setAnimationDuration:[keyboardInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue]];
-        self.tableView.contentInset = tableContentInset;
-        self.tableView.scrollIndicatorInsets = tableScrollIndicatorInsets;
+        self.scrollView.contentInset = tableContentInset;
+        self.scrollView.scrollIndicatorInsets = tableScrollIndicatorInsets;
         [UIView commitAnimations];
     }
 }
 
 @end
-
-
-
-@interface FXFormViewController ()
-
-@property (nonatomic, strong) FXFormController *formController;
-
-@end
-
-
-@implementation FXFormViewController
-@synthesize tableView = _tableView;
-@synthesize field = _field;
-
-- (void)dealloc
-{
-    _formController.delegate = nil;
-}
-
-- (void)setField:(FXFormField *)field
-{
-    _field = field;
-    
-    id<FXForm> form = nil;
-    if (field.options)
-    {
-        form = [[FXOptionsForm alloc] initWithField:field];
-    }
-    else if ([field isCollectionType])
-    {
-        form = [[FXTemplateForm alloc] initWithField:field];
-    }
-    else if ([field.valueClass conformsToProtocol:@protocol(FXForm)])
-    {
-        if (!field.value && ![field.valueClass isSubclassOfClass:FXFormClassFromString(@"NSManagedObject")])
-        {
-            //create a new instance of the form automatically
-            field.value = [[field.valueClass alloc] init];
-        }
-        form = field.value;
-    }
-    else
-    {
-        [NSException raise:FXFormsException format:@"FXFormViewController field value must conform to FXForm protocol"];
-    }
-    
-    self.formController.parentFormController = field.formController;
-    self.formController.form = form;
-}
-
-- (FXFormController *)formController
-{
-    if (!_formController)
-    {
-        _formController = [[FXFormController alloc] init];
-        _formController.delegate = self;
-    }
-    return _formController;
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    
-    if (!self.tableView)
-    {
-        self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds
-                                                      style:UITableViewStyleGrouped];
-    }
-    if (!self.tableView.superview)
-    {
-        self.view = self.tableView;
-    }
-}
-
-- (void)setTableView:(UITableView *)tableView
-{
-    _tableView = tableView;
-    self.formController.tableView = tableView;
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
-    NSIndexPath *selected = [self.tableView indexPathForSelectedRow];
-    if (selected)
-    {
-        [self.tableView reloadData];
-        [self.tableView selectRowAtIndexPath:selected animated:NO scrollPosition:UITableViewScrollPositionNone];
-        [self.tableView deselectRowAtIndexPath:selected animated:YES];
-    }
-}
-
-@end
-

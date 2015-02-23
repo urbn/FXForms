@@ -34,6 +34,10 @@
     self.tableView.delegate = self;
 }
 
+- (id <FXFormControllerDelegate, UITableViewDelegate>)tableDelegate {
+    return (id<FXFormControllerDelegate, UITableViewDelegate>)self.delegate;
+}
+
 - (UIViewController *)tableViewController
 {
     id responder = self.tableView;
@@ -151,7 +155,7 @@
     //forward to delegate
     if ([self.delegate respondsToSelector:_cmd])
     {
-        return [self.delegate tableView:tableView viewForHeaderInSection:index];
+        return [[self tableDelegate] tableView:tableView viewForHeaderInSection:index];
     }
     
     //handle view or class
@@ -168,7 +172,7 @@
     //forward to delegate
     if ([self.delegate respondsToSelector:_cmd])
     {
-        return [self.delegate tableView:tableView heightForHeaderInSection:index];
+        return [[self tableDelegate] tableView:tableView heightForHeaderInSection:index];
     }
     
     //handle view or class
@@ -185,7 +189,7 @@
     //forward to delegate
     if ([self.delegate respondsToSelector:_cmd])
     {
-        return [self.delegate tableView:tableView viewForFooterInSection:index];
+        return [[self tableDelegate] tableView:tableView viewForFooterInSection:index];
     }
     
     //handle view or class
@@ -202,7 +206,7 @@
     //forward to delegate
     if ([self.delegate respondsToSelector:_cmd])
     {
-        return [self.delegate tableView:tableView heightForFooterInSection:index];
+        return [[self tableDelegate] tableView:tableView heightForFooterInSection:index];
     }
     
     //handle view or class
@@ -234,7 +238,7 @@
     //forward to delegate
     if ([self.delegate respondsToSelector:_cmd])
     {
-        [self.delegate tableView:tableView willDisplayCell:cell forRowAtIndexPath:indexPath];
+        [[self tableDelegate] tableView:tableView willDisplayCell:cell forRowAtIndexPath:indexPath];
     }
 }
 
@@ -250,7 +254,7 @@
     //forward to delegate
     if ([self.delegate respondsToSelector:@selector(tableView:didSelectRowAtIndexPath:)])
     {
-        [self.delegate tableView:tableView didSelectRowAtIndexPath:indexPath];
+        [[self tableDelegate] tableView:tableView didSelectRowAtIndexPath:indexPath];
     }
 }
 

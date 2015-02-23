@@ -25,7 +25,7 @@
 @end
 
 
-@protocol FXFormControllerDelegate <UITableViewDelegate>
+@protocol FXFormControllerDelegate <NSObject>
 
 @end
 

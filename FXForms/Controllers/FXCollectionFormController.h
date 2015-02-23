@@ -14,3 +14,8 @@
 @property (nonatomic, weak) IBOutlet UICollectionView *collectionView;
 
 @end
+
+@interface FXFormCollectionViewController : UIViewController <FXFormFieldViewController, FXFormControllerDelegate>
+@property (nonatomic, readonly) FXCollectionFormController *formController;
+@property (nonatomic, strong) IBOutlet UICollectionView *collectionView;
+@end

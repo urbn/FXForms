@@ -63,6 +63,9 @@
 #pragma mark - Cell Registrations
 - (Class)cellClassForField:(FXFormField *)field
 {
+    if (field.cellClass) {
+        return field.cellClass;
+    }
     if (field.type != FXFormFieldTypeDefault)
     {
         return self.cellClassesForFieldTypes[field.type] ?:
@@ -362,7 +365,7 @@
     //forward to delegate
     if ([self.delegate respondsToSelector:_cmd])
     {
-        [self.delegate scrollViewWillBeginDragging:scrollView];
+        [(id<UIScrollViewDelegate>)self.delegate scrollViewWillBeginDragging:scrollView];
     }
 }
 

@@ -166,6 +166,19 @@
     return [self.scrollView isKindOfClass:[UITableView class]] ? (UITableView *)self.scrollView : nil;
 }
 
+- (UIViewController *)viewController {
+    id responder = self.scrollView;
+    while (responder)
+    {
+        if ([responder isKindOfClass:[UIViewController class]])
+        {
+            return responder;
+        }
+        responder = [responder nextResponder];
+    }
+    return nil;
+}
+
 #pragma mark - Method Forwarding
 - (BOOL)respondsToSelector:(SEL)selector
 {
@@ -280,10 +293,13 @@
     }];
 }
 
-- (void)deselectRowAtIndexPath:(NSIndexPath *)indexPath animated:(BOOL)animated {
+- (void)deselectRowAtIndexPath:(NSIndexPath *)ip animated:(BOOL)animated {
+    __block NSIndexPath *indexPath = ip;
     [self performUIChange:^(UITableView *tableView) {
+        indexPath = indexPath ?: [tableView indexPathForSelectedRow];
         [tableView deselectRowAtIndexPath:indexPath animated:animated];
     } collection:^(UICollectionView *collectionView) {
+        indexPath = indexPath ?: [[collectionView indexPathsForSelectedItems] firstObject];
         [collectionView deselectItemAtIndexPath:indexPath animated:animated];
     }];
 }

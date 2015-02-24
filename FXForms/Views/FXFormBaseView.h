@@ -14,11 +14,18 @@
  *  Within this class we'll do a little work to mimic some of the useful built in features of 
  *  UITabelViewCell.
  */
+@class FXFormController;
+
 @interface FXFormBaseView : UIView <FXFormFieldCell>
 
 @property (nonatomic, readonly) UIView *contentView;
 @property (nonatomic, readonly) UILabel *textLabel;
 @property (nonatomic, readonly) UILabel *detailTextLabel;
+
+@property (nonatomic, copy) NSIndexPath *indexPath;
+
+@property (nonatomic, assign, getter=isHighlighted) IBInspectable BOOL highlighted;
+@property (nonatomic, assign, getter=isSelected) IBInspectable BOOL selected;
 
 
 // Methods
@@ -35,11 +42,14 @@
 - (void)update;
 
 
-- (void)didSelectWithView:(UIView *)view controller:(UIViewController *)vc;
+- (void)didSelectWithView:(UIView *)view withViewController:(UIViewController *)controller withFormController:(FXFormController *)formController;
 
 @end
 
 
 // Subclasses
 @interface FXFormDefaultView : FXFormBaseView @end
+@interface FXFormTextFieldView : FXFormBaseView
+@property (nonatomic, readonly) UITextField *textField;
+@end
 

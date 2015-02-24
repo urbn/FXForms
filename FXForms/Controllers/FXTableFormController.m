@@ -38,20 +38,6 @@
     return (id<FXFormControllerDelegate, UITableViewDelegate>)self.delegate;
 }
 
-- (UIViewController *)tableViewController
-{
-    id responder = self.tableView;
-    while (responder)
-    {
-        if ([responder isKindOfClass:[UIViewController class]])
-        {
-            return responder;
-        }
-        responder = [responder nextResponder];
-    }
-    return nil;
-}
-
 - (void)dealloc {
     _tableView.dataSource = nil;
     _tableView.delegate = nil;
@@ -248,7 +234,7 @@
     UITableViewCell<FXFormFieldCell> *cell = (UITableViewCell<FXFormFieldCell> *)[tableView cellForRowAtIndexPath:indexPath];
     if ([cell respondsToSelector:@selector(didSelectWithTableView:controller:)])
     {
-        [cell didSelectWithTableView:tableView controller:[self tableViewController]];
+        [cell didSelectWithTableView:tableView controller:[self viewController]];
     }
     
     //forward to delegate

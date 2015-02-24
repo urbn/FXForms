@@ -15,13 +15,21 @@
 
 #import "FXFormBaseView.h"
 
-const NSInteger kFXFormViewTag = 8675309;
-
-@interface FXFormCollectionCell : UICollectionViewCell
+@interface FXFormCollectionCell : UICollectionViewCell <FXFormFieldCell>
 @property (nonatomic, strong) FXFormBaseView *formView;
 @end
 
 @implementation FXFormCollectionCell
+
+- (void)setSelected:(BOOL)selected {
+    [super setSelected:selected];
+    [self.formView setSelected: selected];
+}
+
+- (void)setHighlighted:(BOOL)highlighted {
+    [super setHighlighted: highlighted];
+    [self.formView setHighlighted:highlighted];
+}
 
 - (void)setFormView:(FXFormBaseView *)formView {
     if ([_formView isEqual:formView]) {
@@ -33,19 +41,19 @@ const NSInteger kFXFormViewTag = 8675309;
     }
     
     _formView = formView;
-    
     if (formView) {
-        formView.backgroundColor = [UIColor redColor];
         formView.translatesAutoresizingMaskIntoConstraints = NO;
-        [formView setContentHuggingPriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
         [self.contentView addSubview:formView];
         
         NSDictionary *views = NSDictionaryOfVariableBindings(formView);
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[formView]-|" options:0 metrics:nil views:views]];
         [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[formView]-|" options:0 metrics:nil views:views]];
-        [self invalidateIntrinsicContentSize];
     }
 }
+
+#pragma mark - FormFieldCell
+- (void)setField:(FXFormField *)field { [self.formView setField:field]; }
+- (FXFormField *)field { return self.formView.field; }
 
 @end
 
@@ -53,7 +61,19 @@ const NSInteger kFXFormViewTag = 8675309;
 
 - (instancetype)init {
     if ((self = [super init])) {
-        self.cellClassesForFieldTypes = [@{FXFormFieldTypeDefault : [FXFormDefaultView class]} mutableCopy];
+        self.cellClassesForFieldTypes = [
+                                         @{
+                                           FXFormFieldTypeDefault : [FXFormDefaultView class],
+                                           FXFormFieldTypeURL: [FXFormTextFieldView class],
+                                           FXFormFieldTypeEmail: [FXFormTextFieldView class],
+                                           FXFormFieldTypePhone: [FXFormTextFieldView class],
+                                           FXFormFieldTypePassword: [FXFormTextFieldView class],
+                                           FXFormFieldTypeNumber: [FXFormTextFieldView class],
+                                           FXFormFieldTypeFloat: [FXFormTextFieldView class],
+                                           FXFormFieldTypeInteger: [FXFormTextFieldView class],
+                                           FXFormFieldTypeUnsigned: [FXFormTextFieldView class],
+                                           FXFormFieldTypeText : [FXFormTextFieldView class]
+                                           } mutableCopy];
     }
     return self;
 }
@@ -69,7 +89,6 @@ const NSInteger kFXFormViewTag = 8675309;
     
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
-//    [self.collectionView reloadData];
 }
 
 - (void)setDelegate:(id<FXFormControllerDelegate>)delegate {
@@ -80,27 +99,29 @@ const NSInteger kFXFormViewTag = 8675309;
     self.collectionView.delegate = self;
 }
 
-- (void)dealloc {
-    _collectionView.dataSource = nil;
-    _collectionView.delegate = nil;
-}
-
 #pragma mark - Overrides 
-- (FXFormBaseView *)cellForField:(FXFormField *)field
-{
+- (FXFormBaseView *)formViewForField:(FXFormField *)field {
     //don't recycle cells - it would make things complicated
     Class cellClass = [self cellClassForField:field];
     NSString *nibName = NSStringFromClass(cellClass);
+    FXFormBaseView *view = nil;
     if ([[NSBundle mainBundle] pathForResource:nibName ofType:@"nib"])
     {
         //load cell from nib
-        return [[[NSBundle mainBundle] loadNibNamed:nibName owner:nil options:nil] firstObject];
+        view = [[[NSBundle mainBundle] loadNibNamed:nibName owner:nil options:nil] firstObject];
     }
-    else
-    {
+    else {
         //don't recycle cells - it would make things complicated
-        return [[cellClass alloc] init];
+        view = [[cellClass alloc] init];
     }
+    
+    [self configureView:view forIndexPath:[self indexPathForField:field]];
+    return view;
+}
+
+- (id <FXFormFieldCell>)cellForField:(FXFormField *)field {
+    NSIndexPath *indexPath = [self indexPathForField:field];
+    return [self.collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([self cellClassForField:field]) forIndexPath:indexPath];
 }
 
 
@@ -130,45 +151,45 @@ const NSInteger kFXFormViewTag = 8675309;
     }];
 }
 
-//- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(FXFormCollectionCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
-//    [self configureView:cell.formView forIndexPath:indexPath];
-//    //forward to delegate
-//    if ([self.delegate respondsToSelector:_cmd])
-//    {
-//        [(id<UICollectionViewDelegate>)self.delegate collectionView:collectionView willDisplayCell:cell forItemAtIndexPath:indexPath];
-//    }
-//}
-
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    FXFormField *field = [self fieldForIndexPath:indexPath];
-    FXFormCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([self cellClassForField:field]) forIndexPath:indexPath];
+- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
     
     if ([cell.contentView respondsToSelector:@selector(layoutMargins)]) {
         [cell.contentView setValue:[NSValue valueWithUIEdgeInsets:UIEdgeInsetsZero] forKey:@"layoutMargins"];
     }
     
-    FXFormBaseView *v = [self cellForField:field];
-    [cell setFormView: v];
-    [self configureView:v forIndexPath:indexPath];
     
-    cell.backgroundColor = [UIColor whiteColor];
-    
-    return cell;
+    cell.contentView.backgroundColor = [UIColor whiteColor];
+    FXFormField *field = [self fieldForIndexPath:indexPath];
+    FXFormBaseView *v = [self formViewForField:field];
+    [(FXFormCollectionCell *)cell setFormView: v];
+    [self configureView:((FXFormCollectionCell *)cell).formView forIndexPath:indexPath];
+    //forward to delegate
+    if ([self.delegate respondsToSelector:_cmd]) {
+        [(id<UICollectionViewDelegate>)self.delegate collectionView:collectionView willDisplayCell:cell forItemAtIndexPath:indexPath];
+    }
 }
 
-//- (CGSize)collectionView:(UICollectionView *)collectionView layout:(__unused UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-//    FXFormBaseView *v = [self cellForField:[self fieldForIndexPath:indexPath]];
-//    [self configureView:v forIndexPath:indexPath];
-//    
-//    NSString *className = NSStringFromClass(v.class);
-//    [v setNeedsLayout];
-//    [v layoutIfNeeded];
-//    
-//    NSNumber *cachedHeight = @([v systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height);
-//    self.cellHeightCache[className] = cachedHeight;
-//    
-//    return CGSizeMake(collectionView.frame.size.width, [cachedHeight floatValue]);
-//}
+- (UICollectionViewCell *)collectionView:(__unused UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    return (UICollectionViewCell *)[self cellForField:[self fieldForIndexPath:indexPath]];
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    FXFormBaseView *v = [self formViewForField:[self fieldForIndexPath:indexPath]];
+    UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)collectionViewLayout;
+    
+    CGFloat height = [v systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
+    CGSize s = CGSizeMake(collectionView.frame.size.width, height);
+    s.width -= (layout.sectionInset.left + layout.sectionInset.right);
+    return s;
+}
+
+#pragma mark - Delegate
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    [collectionView deselectItemAtIndexPath:indexPath animated:YES];
+    
+    FXFormCollectionCell *cell = (FXFormCollectionCell *)[self cellForRowAtIndexPath:indexPath];
+    [cell.formView didSelectWithView:collectionView withViewController:[self viewController] withFormController:self];
+}
 
 @end
 
@@ -230,9 +251,12 @@ const NSInteger kFXFormViewTag = 8675309;
     
     if (!self.collectionView) {
         UICollectionViewFlowLayout *l = [UICollectionViewFlowLayout new];
-        l.estimatedItemSize = CGSizeMake(self.view.bounds.size.width, 100.f);
+        l.minimumInteritemSpacing = 0.f;
+        l.minimumLineSpacing = 5.f;
+        l.sectionInset = UIEdgeInsetsMake(15.f, 20.f, 10.f, 20.f);
         self.collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds
                                                  collectionViewLayout:l];
+        self.collectionView.backgroundColor = [UIColor lightGrayColor];
     }
     if (!self.collectionView.superview) {
         self.view = self.collectionView;
@@ -242,6 +266,10 @@ const NSInteger kFXFormViewTag = 8675309;
 - (void)setCollectionView:(UICollectionView *)collectionView {
     _collectionView = collectionView;
     self.formController.collectionView = collectionView;
+}
+
+- (void)willRotateToInterfaceOrientation:(__unused UIInterfaceOrientation)toInterfaceOrientation duration:(__unused NSTimeInterval)duration {
+    [self.collectionView.collectionViewLayout invalidateLayout];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

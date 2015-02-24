@@ -27,5 +27,6 @@
 
 - (FXFormSection *)sectionAtIndex:(NSUInteger)index;
 - (id <FXFormFieldCell>)cellForField:(FXFormField *)field;
+- (UIViewController *)viewController;
 
 @end

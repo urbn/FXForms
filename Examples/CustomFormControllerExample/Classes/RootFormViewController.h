@@ -11,6 +11,6 @@
 @interface RootFormViewController : UIViewController <FXFormControllerDelegate>
 
 @property (nonatomic, strong) IBOutlet UITableView *tableView;
-@property (nonatomic, strong) FXFormController *formController;
+@property (nonatomic, strong) FXTableFormController *formController;
 
 @end

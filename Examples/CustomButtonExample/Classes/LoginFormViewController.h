@@ -8,9 +8,8 @@
 
 #import "FXForms.h"
 
-@interface LoginFormViewController : UIViewController <FXFormControllerDelegate>
+@interface LoginFormViewController : UICollectionViewController <FXFormControllerDelegate>
 
-@property (nonatomic, strong) IBOutlet UITableView *tableView;
-@property (nonatomic, strong) FXFormController *formController;
+@property (nonatomic, strong) FXCollectionFormController *formController;
 
 @end

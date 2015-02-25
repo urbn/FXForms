@@ -14,12 +14,19 @@
 		0169995618A1663700E7085F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0169995518A1663700E7085F /* main.m */; };
 		0169995A18A1663700E7085F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0169995918A1663700E7085F /* AppDelegate.m */; };
 		0169995C18A1663700E7085F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0169995B18A1663700E7085F /* Images.xcassets */; };
-		0169997B18A1664800E7085F /* FXForms.m in Sources */ = {isa = PBXBuildFile; fileRef = 0169997A18A1664800E7085F /* FXForms.m */; };
 		016E3F1518F297A300BA584F /* CustomButtonCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 016E3F1418F297A300BA584F /* CustomButtonCell.m */; };
 		016E3F1718F297D600BA584F /* CustomButtonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 016E3F1618F297D600BA584F /* CustomButtonCell.xib */; };
 		0178250818E1A0AE004C3815 /* LoginFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0178250718E1A0AE004C3815 /* LoginFormViewController.m */; };
-		0178250A18E1A945004C3815 /* LoginFormViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0178250918E1A945004C3815 /* LoginFormViewController.xib */; };
 		01C0532518A27F4F00EEA858 /* LoginForm.m in Sources */ = {isa = PBXBuildFile; fileRef = 01C0532418A27F4F00EEA858 /* LoginForm.m */; };
+		D8A034111A9E7280001BC5DF /* FXCollectionFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A033FE1A9E7280001BC5DF /* FXCollectionFormController.m */; };
+		D8A034121A9E7280001BC5DF /* FXTableFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A034011A9E7280001BC5DF /* FXTableFormController.m */; };
+		D8A034131A9E7280001BC5DF /* FXFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A034031A9E7280001BC5DF /* FXFormController.m */; };
+		D8A034141A9E7280001BC5DF /* FXFormField.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A034051A9E7280001BC5DF /* FXFormField.m */; };
+		D8A034151A9E7280001BC5DF /* FXFormModels.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A034071A9E7280001BC5DF /* FXFormModels.m */; };
+		D8A034161A9E7280001BC5DF /* FXFormsDefines.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A0340A1A9E7280001BC5DF /* FXFormsDefines.m */; };
+		D8A034171A9E7280001BC5DF /* FXFormTableCells.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A0340D1A9E7280001BC5DF /* FXFormTableCells.m */; };
+		D8A034181A9E7280001BC5DF /* FXFormBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A034101A9E7280001BC5DF /* FXFormBaseView.m */; };
+		D8A0341A1A9E73BD001BC5DF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D8A034191A9E73BD001BC5DF /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,16 +42,33 @@
 		0169995918A1663700E7085F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		0169995B18A1663700E7085F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		0169996218A1663700E7085F /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		0169997918A1664800E7085F /* FXForms.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXForms.h; sourceTree = "<group>"; };
-		0169997A18A1664800E7085F /* FXForms.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXForms.m; sourceTree = "<group>"; };
 		016E3F1318F297A300BA584F /* CustomButtonCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomButtonCell.h; sourceTree = "<group>"; };
 		016E3F1418F297A300BA584F /* CustomButtonCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomButtonCell.m; sourceTree = "<group>"; };
 		016E3F1618F297D600BA584F /* CustomButtonCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomButtonCell.xib; sourceTree = "<group>"; };
 		0178250618E1A0AE004C3815 /* LoginFormViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginFormViewController.h; sourceTree = "<group>"; };
 		0178250718E1A0AE004C3815 /* LoginFormViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginFormViewController.m; sourceTree = "<group>"; };
-		0178250918E1A945004C3815 /* LoginFormViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginFormViewController.xib; sourceTree = "<group>"; };
 		01C0532318A27F4F00EEA858 /* LoginForm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginForm.h; sourceTree = "<group>"; };
 		01C0532418A27F4F00EEA858 /* LoginForm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginForm.m; sourceTree = "<group>"; };
+		D8A033FD1A9E7280001BC5DF /* FXCollectionFormController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXCollectionFormController.h; sourceTree = "<group>"; };
+		D8A033FE1A9E7280001BC5DF /* FXCollectionFormController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXCollectionFormController.m; sourceTree = "<group>"; };
+		D8A033FF1A9E7280001BC5DF /* FXFormController_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXFormController_Private.h; sourceTree = "<group>"; };
+		D8A034001A9E7280001BC5DF /* FXTableFormController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXTableFormController.h; sourceTree = "<group>"; };
+		D8A034011A9E7280001BC5DF /* FXTableFormController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXTableFormController.m; sourceTree = "<group>"; };
+		D8A034021A9E7280001BC5DF /* FXFormController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXFormController.h; sourceTree = "<group>"; };
+		D8A034031A9E7280001BC5DF /* FXFormController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXFormController.m; sourceTree = "<group>"; };
+		D8A034041A9E7280001BC5DF /* FXFormField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXFormField.h; sourceTree = "<group>"; };
+		D8A034051A9E7280001BC5DF /* FXFormField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXFormField.m; sourceTree = "<group>"; };
+		D8A034061A9E7280001BC5DF /* FXFormModels.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXFormModels.h; sourceTree = "<group>"; };
+		D8A034071A9E7280001BC5DF /* FXFormModels.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXFormModels.m; sourceTree = "<group>"; };
+		D8A034081A9E7280001BC5DF /* FXForms.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXForms.h; sourceTree = "<group>"; };
+		D8A034091A9E7280001BC5DF /* FXFormsDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXFormsDefines.h; sourceTree = "<group>"; };
+		D8A0340A1A9E7280001BC5DF /* FXFormsDefines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXFormsDefines.m; sourceTree = "<group>"; };
+		D8A0340B1A9E7280001BC5DF /* FXFormsProtocols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXFormsProtocols.h; sourceTree = "<group>"; };
+		D8A0340C1A9E7280001BC5DF /* FXFormTableCells.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXFormTableCells.h; sourceTree = "<group>"; };
+		D8A0340D1A9E7280001BC5DF /* FXFormTableCells.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXFormTableCells.m; sourceTree = "<group>"; };
+		D8A0340F1A9E7280001BC5DF /* FXFormBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXFormBaseView.h; sourceTree = "<group>"; };
+		D8A034101A9E7280001BC5DF /* FXFormBaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXFormBaseView.m; sourceTree = "<group>"; };
+		D8A034191A9E73BD001BC5DF /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +122,7 @@
 				01CB2DDF18CBB2A60069FC4A /* Controllers */,
 				0169995B18A1663700E7085F /* Images.xcassets */,
 				0169995018A1663700E7085F /* Supporting Files */,
+				D8A034191A9E73BD001BC5DF /* Main.storyboard */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -116,8 +141,20 @@
 		0169997818A1664800E7085F /* FXForms */ = {
 			isa = PBXGroup;
 			children = (
-				0169997918A1664800E7085F /* FXForms.h */,
-				0169997A18A1664800E7085F /* FXForms.m */,
+				D8A033FC1A9E7280001BC5DF /* Controllers */,
+				D8A034021A9E7280001BC5DF /* FXFormController.h */,
+				D8A034031A9E7280001BC5DF /* FXFormController.m */,
+				D8A034041A9E7280001BC5DF /* FXFormField.h */,
+				D8A034051A9E7280001BC5DF /* FXFormField.m */,
+				D8A034061A9E7280001BC5DF /* FXFormModels.h */,
+				D8A034071A9E7280001BC5DF /* FXFormModels.m */,
+				D8A034081A9E7280001BC5DF /* FXForms.h */,
+				D8A034091A9E7280001BC5DF /* FXFormsDefines.h */,
+				D8A0340A1A9E7280001BC5DF /* FXFormsDefines.m */,
+				D8A0340B1A9E7280001BC5DF /* FXFormsProtocols.h */,
+				D8A0340C1A9E7280001BC5DF /* FXFormTableCells.h */,
+				D8A0340D1A9E7280001BC5DF /* FXFormTableCells.m */,
+				D8A0340E1A9E7280001BC5DF /* Views */,
 			);
 			name = FXForms;
 			path = ../../FXForms;
@@ -149,9 +186,29 @@
 				0169995918A1663700E7085F /* AppDelegate.m */,
 				0178250618E1A0AE004C3815 /* LoginFormViewController.h */,
 				0178250718E1A0AE004C3815 /* LoginFormViewController.m */,
-				0178250918E1A945004C3815 /* LoginFormViewController.xib */,
 			);
 			name = Controllers;
+			sourceTree = "<group>";
+		};
+		D8A033FC1A9E7280001BC5DF /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				D8A033FD1A9E7280001BC5DF /* FXCollectionFormController.h */,
+				D8A033FE1A9E7280001BC5DF /* FXCollectionFormController.m */,
+				D8A033FF1A9E7280001BC5DF /* FXFormController_Private.h */,
+				D8A034001A9E7280001BC5DF /* FXTableFormController.h */,
+				D8A034011A9E7280001BC5DF /* FXTableFormController.m */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		D8A0340E1A9E7280001BC5DF /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D8A0340F1A9E7280001BC5DF /* FXFormBaseView.h */,
+				D8A034101A9E7280001BC5DF /* FXFormBaseView.m */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -207,8 +264,8 @@
 			files = (
 				016E3F1718F297D600BA584F /* CustomButtonCell.xib in Resources */,
 				0169995418A1663700E7085F /* InfoPlist.strings in Resources */,
-				0178250A18E1A945004C3815 /* LoginFormViewController.xib in Resources */,
 				0169995C18A1663700E7085F /* Images.xcassets in Resources */,
+				D8A0341A1A9E73BD001BC5DF /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -219,12 +276,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8A034181A9E7280001BC5DF /* FXFormBaseView.m in Sources */,
+				D8A034121A9E7280001BC5DF /* FXTableFormController.m in Sources */,
 				0169995A18A1663700E7085F /* AppDelegate.m in Sources */,
+				D8A034171A9E7280001BC5DF /* FXFormTableCells.m in Sources */,
 				0178250818E1A0AE004C3815 /* LoginFormViewController.m in Sources */,
-				0169997B18A1664800E7085F /* FXForms.m in Sources */,
+				D8A034161A9E7280001BC5DF /* FXFormsDefines.m in Sources */,
+				D8A034131A9E7280001BC5DF /* FXFormController.m in Sources */,
+				D8A034141A9E7280001BC5DF /* FXFormField.m in Sources */,
 				0169995618A1663700E7085F /* main.m in Sources */,
 				016E3F1518F297A300BA584F /* CustomButtonCell.m in Sources */,
+				D8A034151A9E7280001BC5DF /* FXFormModels.m in Sources */,
 				01C0532518A27F4F00EEA858 /* LoginForm.m in Sources */,
+				D8A034111A9E7280001BC5DF /* FXCollectionFormController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -388,7 +452,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Classes/CustomButtonExample-Prefix.pch";
 				INFOPLIST_FILE = "Classes/CustomButtonExample-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = CustomButtonExample;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -401,7 +467,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Classes/CustomButtonExample-Prefix.pch";
 				INFOPLIST_FILE = "Classes/CustomButtonExample-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = CustomButtonExample;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

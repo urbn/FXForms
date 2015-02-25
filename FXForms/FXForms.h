@@ -39,6 +39,7 @@
 
 #import "FXFormController.h"
 #import "FXTableFormController.h"
+#import "FXCollectionFormController.h"
 
 #import "FXFormTableCells.h"
 #import "FXFormBaseView.h"

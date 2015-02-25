@@ -41,6 +41,31 @@
 
 @implementation FXFormField
 
+- (NSUInteger)hash {
+    return [self.key hash] | [self.title hash] | [self.value hash];
+}
+
+- (BOOL)isEqual:(id)object {
+    if (!object || ![object isKindOfClass:[self class]]) return NO;
+    
+    NSArray *equalityChecks = @[@"title", @"value", @"key"];
+    BOOL (^EqualCheck)(NSString *k) = ^(NSString *k) {
+        id val1 = [self valueForKey:k];
+        id val2 = [object valueForKey:k];
+        
+        if (val1 == val2) return YES;
+        if ([val1 isEqual:val2]) return YES;
+        
+        return NO;
+    };
+    for (NSString *k in equalityChecks) {
+        if (!EqualCheck(k)) {
+            return NO;
+        }
+    }
+    return YES;
+}
+
 + (NSArray *)fieldsWithForm:(id<FXForm>)form controller:(FXFormController *)formController
 {
     //get fields

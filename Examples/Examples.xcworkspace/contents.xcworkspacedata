@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <Group
+      location = "group:BasicExample"
+      name = "BasicExample">
+      <FileRef
+         location = "group:BasicExample.xcodeproj">
+      </FileRef>
+   </Group>
+   <Group
+      location = "group:DependentFieldsExample"
+      name = "DependentFieldsExample">
+      <FileRef
+         location = "group:DependentFieldsExample.xcodeproj">
+      </FileRef>
+   </Group>
+   <Group
+      location = "group:DynamicFieldsExample"
+      name = "DynamicFieldsExample">
+      <FileRef
+         location = "group:DynamicFieldsExample.xcodeproj">
+      </FileRef>
+   </Group>
+   <Group
+      location = "group:CustomButtonExample"
+      name = "CustomButtonExample">
+      <FileRef
+         location = "group:CustomButtonExample.xcodeproj">
+      </FileRef>
+   </Group>
+   <Group
+      location = "group:CustomFormControllerExample"
+      name = "CustomFormControllerExample">
+      <FileRef
+         location = "group:CustomFormControllerExample.xcodeproj">
+      </FileRef>
+   </Group>
+   <Group
+      location = "group:FieldControllerExample"
+      name = "FieldControllerExample">
+      <FileRef
+         location = "group:FieldControllerExample.xcodeproj">
+      </FileRef>
+   </Group>
+   <Group
+      location = "group:StoryboardExample"
+      name = "StoryboardExample">
+      <FileRef
+         location = "group:StoryboardExample.xcodeproj">
+      </FileRef>
+   </Group>
+   <Group
+      location = "group:SwiftExample"
+      name = "SwiftExample">
+      <Group
+         location = "group:SwiftExample"
+         name = "SwiftExample">
+         <FileRef
+            location = "group:AppDelegate.swift">
+         </FileRef>
+         <Group
+            location = "group:Base.lproj"
+            name = "Base.lproj">
+            <FileRef
+               location = "group:LaunchScreen.xib">
+            </FileRef>
+            <FileRef
+               location = "group:Main.storyboard">
+            </FileRef>
+         </Group>
+         <Group
+            location = "group:Images.xcassets"
+            name = "Images.xcassets">
+            <Group
+               location = "group:AppIcon.appiconset"
+               name = "AppIcon.appiconset">
+               <FileRef
+                  location = "group:Contents.json">
+               </FileRef>
+            </Group>
+         </Group>
+         <FileRef
+            location = "group:Info.plist">
+         </FileRef>
+         <FileRef
+            location = "group:ISO3166CountryValueTransformer.swift">
+         </FileRef>
+         <FileRef
+            location = "group:RegistrationForm.swift">
+         </FileRef>
+         <FileRef
+            location = "group:RegistrationFormViewController.swift">
+         </FileRef>
+         <FileRef
+            location = "group:SwiftExample-Bridging-Header.h">
+         </FileRef>
+      </Group>
+      <FileRef
+         location = "group:SwiftExample.xcodeproj">
+      </FileRef>
+   </Group>
+   <Group
+      location = "group:TemplateFieldsExample"
+      name = "TemplateFieldsExample">
+      <FileRef
+         location = "group:TemplateFieldsExample.xcodeproj">
+      </FileRef>
+   </Group>
+</Workspace>

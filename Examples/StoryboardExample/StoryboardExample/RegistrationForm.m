@@ -69,7 +69,7 @@
              @{FXFormFieldKey: @"language",
                FXFormFieldOptions: @[@"English", @"Spanish", @"French", @"Dutch"],
                FXFormFieldPlaceholder: @"None",
-               FXFormFieldCell: [FXFormOptionPickerCell class]},
+               FXFormFieldCell: [FXFormOptionPickerView class]},
              
              //this is a multi-select options field - FXForms knows this because the
              //class of the field property is a collection (in this case, NSArray)
@@ -98,7 +98,7 @@
                FXFormFieldTitle: @"",
                FXFormFieldPlaceholder: @"Free",
                FXFormFieldOptions: @[@"Micro", @"Normal", @"Maxi"],
-               FXFormFieldCell: [FXFormOptionSegmentsCell class]},
+               FXFormFieldCell: [FXFormOptionSegmentsView class]},
              
              //we've implemented the terms and privacy policy as segues, which means that
              //they have to be set up with configuration dictionaries, as there's no way

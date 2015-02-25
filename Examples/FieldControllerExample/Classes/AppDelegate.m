@@ -15,7 +15,7 @@
 - (BOOL)application:(__unused UIApplication *)application didFinishLaunchingWithOptions:(__unused NSDictionary *)launchOptions
 {
     //set up form
-    FXFormViewController *formViewController = [[FXFormViewController alloc] init];
+    FXFormCollectionViewController *formViewController = [[FXFormCollectionViewController alloc] init];
     formViewController.formController.form = [[LocationForm alloc] init];
     
     //set up window

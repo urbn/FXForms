@@ -17,19 +17,19 @@
     [super viewDidLoad];
     
     //set up form and form controller
-    self.formController = [[FXFormController alloc] init];
-    self.formController.tableView = self.tableView;
+    self.formController = [[FXCollectionFormController alloc] init];
+    self.formController.collectionView = self.collectionView;
     self.formController.delegate = self;
     self.formController.form = [[LoginForm alloc] init];
 }
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
-    //reload the table
-    [self.tableView reloadData];
-}
+//
+//- (void)viewWillAppear:(BOOL)animated
+//{
+//    [super viewWillAppear:animated];
+//    
+//    //reload the table
+//    [self.collectionView reloadData];
+//}
 
 
 //this is the action method for our submit button

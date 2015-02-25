@@ -8,6 +8,6 @@
 
 #import "FXForms.h"
 
-@interface CustomButtonCell : FXFormBaseCell
+@interface CustomButtonCell : FXFormBaseView
 
 @end

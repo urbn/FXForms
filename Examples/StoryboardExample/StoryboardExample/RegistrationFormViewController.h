@@ -8,6 +8,6 @@
 
 #import "FXForms.h"
 
-@interface RegistrationFormViewController : FXFormViewController
+@interface RegistrationFormViewController : FXFormCollectionViewController
 
 @end

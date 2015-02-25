@@ -42,6 +42,8 @@
 // Actions
 - (void)performUpdates:(void(^)())updatesBlock withCompletion:(void(^)())completion;
 
+- (void)refreshRowsInSections:(NSIndexSet *)indexSet;
+
 - (void)selectRowAtIndexPath:(NSIndexPath *)indexPath animated:(BOOL)animated scrollPosition:(UITableViewScrollPosition)scrollPosition;
 - (void)deselectRowAtIndexPath:(NSIndexPath *)indexPath animated:(BOOL)animated;
 

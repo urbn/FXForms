@@ -13,7 +13,8 @@
 #import "FXFormTableCells.h"
 #import "FXFormController_Private.h"
 #import "FXTableFormController.h"
-
+#import "FXCollectionFormController.h"
+#import "FXFormTableCells.h"
 
 @implementation FXFormController
 
@@ -39,7 +40,7 @@
                                        FXFormFieldTypeDateTime: [FXFormDatePickerCell class],
                                        FXFormFieldTypeImage: [FXFormImagePickerCell class]} mutableCopy];
         _cellClassesForFieldClasses = [NSMutableDictionary dictionary];
-        _controllerClassesForFieldTypes = [@{FXFormFieldTypeDefault: [FXTableFormController class]} mutableCopy];
+        _controllerClassesForFieldTypes = [@{FXFormFieldTypeDefault: [FXFormTableViewController class]} mutableCopy];
         _controllerClassesForFieldClasses = [NSMutableDictionary dictionary];
         
         [[NSNotificationCenter defaultCenter] addObserver:self
@@ -61,32 +62,39 @@
 }
 
 #pragma mark - Cell Registrations
-- (Class)cellClassForField:(FXFormField *)field
-{
-    if (field.cellClass) {
-        return field.cellClass;
-    }
-    if (field.type != FXFormFieldTypeDefault)
-    {
-        return self.cellClassesForFieldTypes[field.type] ?:
-        self.parentFormController.cellClassesForFieldTypes[field.type] ?:
-        self.cellClassesForFieldTypes[FXFormFieldTypeDefault];
-    }
-    else
-    {
-        Class valueClass = field.valueClass;
-        while (valueClass && valueClass != [NSObject class])
-        {
-            Class cellClass = self.cellClassesForFieldClasses[NSStringFromClass(valueClass)] ?:
-            self.parentFormController.cellClassesForFieldClasses[NSStringFromClass(valueClass)];
-            if (cellClass)
-            {
-                return cellClass;
-            }
-            valueClass = [valueClass superclass];
+- (Class)cellClassForField:(FXFormField *)field {
+    Class aClass = field.cellClass;
+    if (!aClass) {
+        if (field.type != FXFormFieldTypeDefault) {
+            aClass = self.cellClassesForFieldTypes[field.type] ?:
+            self.parentFormController.cellClassesForFieldTypes[field.type] ?:
+            self.cellClassesForFieldTypes[FXFormFieldTypeDefault];
         }
-        return self.cellClassesForFieldTypes[FXFormFieldTypeDefault];
+        else {
+            Class valueClass = field.valueClass;
+            while (valueClass && valueClass != [NSObject class])
+            {
+                Class cellClass = self.cellClassesForFieldClasses[NSStringFromClass(valueClass)] ?:
+                self.parentFormController.cellClassesForFieldClasses[NSStringFromClass(valueClass)];
+                if (cellClass) {
+                    return cellClass;
+                }
+                valueClass = [valueClass superclass];
+            }
+            aClass = self.cellClassesForFieldTypes[FXFormFieldTypeDefault];
+        }
     }
+    
+#warning This is just temporary
+    if ([self isKindOfClass:[FXTableFormController class]]) {
+        // For now we want to ensure anything ending in "View" gets replaced with the "Cell" versions
+        NSString *classString = NSStringFromClass(aClass);
+        if (NSMaxRange([classString rangeOfString:@"View"]) == (classString.length)) {
+            classString = [classString stringByReplacingCharactersInRange:NSMakeRange(classString.length-4, 4) withString:@"Cell"];
+            aClass = NSClassFromString(classString);
+        }
+    }
+    return aClass;
 }
 
 - (void)registerDefaultFieldCellClass:(Class)cellClass
@@ -229,7 +237,7 @@
 - (id <FXFormFieldCell>)cellForField:(FXFormField *)field
 {
     //don't recycle cells - it would make things complicated
-    Class cellClass = field.cellClass ?: [self cellClassForField:field];
+    Class cellClass = [self cellClassForField:field];
     NSString *nibName = NSStringFromClass(cellClass);
     if ([[NSBundle mainBundle] pathForResource:nibName ofType:@"nib"])
     {
@@ -321,6 +329,14 @@
         [tableView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
     } collection:^(UICollectionView *collectionView) {
         [collectionView insertItemsAtIndexPaths:indexPaths];
+    }];
+}
+
+- (void)refreshRowsInSections:(NSIndexSet *)indexSet {
+    [self performUIChange:^(UITableView *tableView) {
+        [tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+    } collection:^(UICollectionView *collectionView) {
+        [collectionView reloadSections:indexSet];
     }];
 }
 

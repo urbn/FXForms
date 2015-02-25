@@ -34,12 +34,12 @@
  *  This is our `sharedInit` method.  Any initialization you want to do for your
  *  subclass goes in here.  Make sure to call super.
  */
-- (void)setup;
+- (void)setup NS_REQUIRES_SUPER;
 
 /**
  *  This is called whenever the cell data updates.   (i.e when the cell comes on screen).
  */
-- (void)update;
+- (void)update NS_REQUIRES_SUPER;
 
 
 - (void)didSelectWithView:(UIView *)view withViewController:(UIViewController *)controller withFormController:(FXFormController *)formController;
@@ -49,7 +49,41 @@
 
 // Subclasses
 @interface FXFormDefaultView : FXFormBaseView @end
+
 @interface FXFormTextFieldView : FXFormBaseView
 @property (nonatomic, readonly) UITextField *textField;
+@end
+
+@interface FXFormTextViewView : FXFormBaseView
+@property (nonatomic, readonly) UITextView *textView;
+@end
+
+@interface FXFormSwitchView : FXFormBaseView
+@property (nonatomic, readonly) UISwitch *switchControl;
+@end
+
+@interface FXFormStepperView : FXFormBaseView
+@property (nonatomic, readonly) UIStepper *stepper;
+@end
+
+@interface FXFormDatePickerView : FXFormBaseView
+@property (nonatomic, readonly) UIDatePicker *datePicker;
+@end
+
+@interface FXFormOptionPickerView : FXFormBaseView
+@property (nonatomic, readonly) UIPickerView *pickerView;
+@end
+
+@interface FXFormImagePickerView : FXFormBaseView
+@property (nonatomic, readonly) UIImageView *imagePickerView;
+@property (nonatomic, readonly) UIImagePickerController *imagePickerController;
+@end
+
+@interface FXFormSliderView : FXFormBaseView
+@property (nonatomic, readonly) UISlider *slider;
+@end
+
+@interface FXFormOptionSegmentsView : FXFormBaseView
+@property (nonatomic, readonly) UISegmentedControl *segmentedControl;
 @end
 

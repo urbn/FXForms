@@ -32,7 +32,6 @@
 		D8C2E64F1A96528600933EF3 /* FXFormModels.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C2E64E1A96528600933EF3 /* FXFormModels.m */; };
 		D8CFB3691A97C15B00B6A1CB /* FXTableFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8CFB3681A97C15B00B6A1CB /* FXTableFormController.m */; };
 		D8CFB36D1A97C2FD00B6A1CB /* FXCollectionFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8CFB36C1A97C2FD00B6A1CB /* FXCollectionFormController.m */; };
-		D8EE1EAD1A9CF256008BB121 /* FXFormInspectables.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8EE1EAC1A9CF256008BB121 /* FXFormInspectables.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -84,7 +83,6 @@
 		D8CFB36A1A97C1A800B6A1CB /* FXFormController_Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = FXFormController_Private.h; path = Controllers/FXFormController_Private.h; sourceTree = "<group>"; };
 		D8CFB36B1A97C2FD00B6A1CB /* FXCollectionFormController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FXCollectionFormController.h; path = Controllers/FXCollectionFormController.h; sourceTree = "<group>"; };
 		D8CFB36C1A97C2FD00B6A1CB /* FXCollectionFormController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FXCollectionFormController.m; path = Controllers/FXCollectionFormController.m; sourceTree = "<group>"; };
-		D8EE1EAC1A9CF256008BB121 /* FXFormInspectables.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FXFormInspectables.xib; path = Views/FXFormInspectables.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -218,7 +216,6 @@
 			children = (
 				D8938D6A1A9BD140008C5095 /* FXFormBaseView.h */,
 				D8938D6B1A9BD140008C5095 /* FXFormBaseView.m */,
-				D8EE1EAC1A9CF256008BB121 /* FXFormInspectables.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -291,7 +288,6 @@
 				0169995418A1663700E7085F /* InfoPlist.strings in Resources */,
 				D8938D681A9BCD48008C5095 /* Main.storyboard in Resources */,
 				01CB2DDD18CBB28C0069FC4A /* PrivacyPolicyViewController.xib in Resources */,
-				D8EE1EAD1A9CF256008BB121 /* FXFormInspectables.xib in Resources */,
 				01CB2DD818CBAA010069FC4A /* TermsViewController.xib in Resources */,
 				0169995C18A1663700E7085F /* Images.xcassets in Resources */,
 			);

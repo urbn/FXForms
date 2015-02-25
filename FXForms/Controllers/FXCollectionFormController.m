@@ -72,20 +72,38 @@
                                            FXFormFieldTypeFloat: [FXFormTextFieldView class],
                                            FXFormFieldTypeInteger: [FXFormTextFieldView class],
                                            FXFormFieldTypeUnsigned: [FXFormTextFieldView class],
-                                           FXFormFieldTypeText : [FXFormTextFieldView class]
+                                           FXFormFieldTypeText : [FXFormTextFieldView class],
+                                           FXFormFieldTypeNumber : [FXFormStepperView class],
+                                           FXFormFieldTypeBoolean: [FXFormSwitchView class],
+                                           FXFormFieldTypeLongText: [FXFormTextViewView class],
+                                           
+                                           FXFormFieldTypeDate: [FXFormDatePickerView class],
+                                           FXFormFieldTypeTime: [FXFormDatePickerView class],
+                                           FXFormFieldTypeDateTime: [FXFormDatePickerView class],
+                                           
+                                           FXFormFieldTypeImage: [FXFormImagePickerView class],
+                                           
                                            } mutableCopy];
+        self.controllerClassesForFieldTypes = [@{FXFormFieldTypeDefault: [FXFormCollectionViewController class]} mutableCopy];
     }
     return self;
 }
 
-- (void)setCollectionView:(UICollectionView *)collectionView
-{
+- (void)registerCellsIfPossible {
+    if (self.form && self.collectionView) {
+        NSArray *allFields = [self.sections valueForKeyPath:@"@unionOfArrays.fields"];
+        [allFields enumerateObjectsUsingBlock:^(FXFormField *obj, __unused NSUInteger idx, __unused BOOL *stop) {
+            Class cellClass = [self cellClassForField:obj];
+            [self.collectionView registerClass:[FXFormCollectionCell class] forCellWithReuseIdentifier:NSStringFromClass(cellClass)];
+        }];
+    }
+}
+
+- (void)setCollectionView:(UICollectionView *)collectionView {
     _collectionView = collectionView;
     self.scrollView = collectionView;
     
-    [self.cellClassesForFieldTypes enumerateKeysAndObjectsUsingBlock:^(__unused NSString *type, Class obj, __unused BOOL *stop) {
-        [collectionView registerClass:[FXFormCollectionCell class] forCellWithReuseIdentifier:NSStringFromClass(obj)];
-    }];
+    [self registerCellsIfPossible];
     
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
@@ -97,6 +115,12 @@
     //force table to update respondsToSelector: cache
     self.collectionView.delegate = nil;
     self.collectionView.delegate = self;
+}
+
+- (void)setForm:(id<FXForm>)form {
+    [super setForm:form];
+    
+    [self registerCellsIfPossible];
 }
 
 #pragma mark - Overrides 
@@ -142,7 +166,7 @@
         [view setValue:value forKeyPath:keyPath];
     }];
     
-    //set form field
+    //set form fieldfield
     view.field = field;
     
     //configure cell after setting field as well (not ideal, but allows overriding keyboard attributes, etc)
@@ -185,10 +209,17 @@
 
 #pragma mark - Delegate
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    [collectionView deselectItemAtIndexPath:indexPath animated:YES];
-    
     FXFormCollectionCell *cell = (FXFormCollectionCell *)[self cellForRowAtIndexPath:indexPath];
-    [cell.formView didSelectWithView:collectionView withViewController:[self viewController] withFormController:self];
+    
+    //forward to cell
+    if ([cell.formView respondsToSelector:@selector(didSelectWithView:withViewController:withFormController:)]) {
+        [cell.formView didSelectWithView:collectionView withViewController:[self viewController] withFormController:self];
+    }
+    
+    //forward to delegate
+    if ([self.delegate respondsToSelector:@selector(tableView:didSelectRowAtIndexPath:)]) {
+        [(id<UICollectionViewDelegate>)self.delegate collectionView:collectionView didSelectItemAtIndexPath:indexPath];
+    }
 }
 
 @end
@@ -202,13 +233,11 @@
 @synthesize collectionView = _collectionView;
 @synthesize field = _field;
 
-- (void)dealloc
-{
+- (void)dealloc {
     _formController.delegate = nil;
 }
 
-- (void)setField:(FXFormField *)field
-{
+- (void)setField:(FXFormField *)field {
     _field = field;
     
     id<FXForm> form = nil;

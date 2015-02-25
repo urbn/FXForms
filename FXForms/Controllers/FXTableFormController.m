@@ -67,7 +67,7 @@
 - (CGFloat)tableView:(__unused UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     FXFormField *field = [self fieldForIndexPath:indexPath];
-    Class cellClass = field.cellClass ?: [self cellClassForField:field];
+    Class cellClass = [self cellClassForField:field];
     if ([cellClass respondsToSelector:@selector(heightForField:width:)])
     {
         return [cellClass heightForField:field width:self.tableView.frame.size.width];

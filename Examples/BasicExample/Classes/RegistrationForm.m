@@ -48,7 +48,7 @@
              
              //we want to use a stepper control for this value, so let's specify that
              
-             @{FXFormFieldKey: @"age", FXFormFieldCell: [FXFormStepperCell class]},
+             @{FXFormFieldKey: @"age", FXFormFieldCell: [FXFormStepperView class]},
              
              //some more regular fields
              
@@ -69,7 +69,7 @@
              @{FXFormFieldKey: @"language",
                FXFormFieldOptions: @[@"English", @"Spanish", @"French", @"Dutch"],
                FXFormFieldDefaultValue: @"English",
-               FXFormFieldCell: [FXFormOptionPickerCell class]},
+               FXFormFieldCell: [FXFormOptionPickerView class]},
              
              //this is a multi-select options field - FXForms knows this because the
              //class of the field property is a collection (in this case, NSArray)
@@ -99,7 +99,7 @@
                FXFormFieldTitle: @"",
                FXFormFieldPlaceholder: @"Free",
                FXFormFieldOptions: @[@"Micro", @"Normal", @"Maxi"],
-               FXFormFieldCell: [FXFormOptionSegmentsCell class]},
+               FXFormFieldCell: [FXFormOptionSegmentsView class]},
              
              //we want to add a section header here, so we use another config dictionary
              

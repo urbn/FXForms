@@ -103,6 +103,7 @@
     } withCompletion:nil];
 }
 
+
 #pragma mark - FormFieldCell
 - (void)setField:(FXFormField *)field { [self.formView setField:field]; }
 - (FXFormField *)field { return self.formView.field; }
@@ -207,9 +208,9 @@
         return header;
     }
     else {
-        FXFormCollectionHeaderView *header = [[FXFormCollectionHeaderView alloc] initWithFrame:CGRectZero];
+        header = [[FXFormCollectionHeaderView alloc] initWithFrame:CGRectZero];
         header.translatesAutoresizingMaskIntoConstraints = NO;
-        header.label.text = [[header description] uppercaseString];
+        ((FXFormCollectionHeaderView *)header).label.text = [[header description] uppercaseString];
         return header;
     }
 }
@@ -272,7 +273,7 @@
     return s;
 }
 
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(__unused UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
     UIView *v = [self headerViewForSection:section];
     if (v) {
         CGSize s = [v systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
@@ -303,13 +304,14 @@
 }
 
 #pragma mark - Delegate
-- (BOOL)collectionView:(__unused UICollectionView *)collectionView canPerformAction:(__unused SEL)action forItemAtIndexPath:(__unused NSIndexPath *)indexPath withSender:(__unused id)sender {
-    return YES;
+- (BOOL)collectionView:(__unused UICollectionView *)collectionView canPerformAction:(__unused SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(__unused id)sender {
+    FXFormBaseView *v = [self formViewForField:[self fieldForIndexPath:indexPath]];
+    return [v.field isCollectionType] || [v.field isOrderedCollectionType];
 }
 
 - (BOOL)collectionView:(__unused UICollectionView *)collectionView shouldShowMenuForItemAtIndexPath:(NSIndexPath *)indexPath {
     FXFormBaseView *v = [self formViewForField:[self fieldForIndexPath:indexPath]];
-    return v.selectionStyle == FXFormViewSelectionStyleNone;
+    return [v.field isCollectionType] || [v.field isOrderedCollectionType];
 }
 
 - (void)collectionView:(__unused UICollectionView *)collectionView performAction:(__unused SEL)action forItemAtIndexPath:(__unused NSIndexPath *)indexPath withSender:(__unused id)sender {

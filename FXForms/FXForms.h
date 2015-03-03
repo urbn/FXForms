@@ -42,4 +42,5 @@
 #import "FXCollectionFormController.h"
 
 #import "FXFormTableCells.h"
-#import "FXFormBaseView.h"
+
+#import "FXFormViews.h"

@@ -12,6 +12,7 @@
 #import "FXFormsDefines.h"
 #import "FXFormTableCells.h"
 #import "FXFormModels.h"
+#import "FXFormViews.h"
 
 
 #pragma clang diagnostic ignored "-Wobjc-missing-property-synthesis"
@@ -132,7 +133,7 @@
     //create add button
     NSString *addButtonTitle = self.field.fieldTemplate[FXFormFieldTitle] ?: NSLocalizedString(@"Add Item", nil);
     [_fields addObject:@{FXFormFieldTitle: addButtonTitle,
-                         FXFormFieldCell: [FXFormDefaultCell class],
+                         FXFormFieldCell: [FXFormDefaultView class],
                          @"textLabel.textAlignment": @(NSTextAlignmentLeft),
                          FXFormFieldAction: ^(UITableViewCell<FXFormFieldCell> *cell) {
         

@@ -75,6 +75,7 @@ BOOL FXFormCanSetValueForKey(id<FXForm> form, NSString *key);
 NSString *FXFormFieldInferType(NSDictionary *dictionary);
 Class FXFormFieldInferClass(NSDictionary *dictionary);
 void FXFormPreprocessFieldDictionary(NSMutableDictionary *dictionary);
+void FXFormSetLayoutMarginsIfPossible(UIView *v, UIEdgeInsets insets);
 
 
 

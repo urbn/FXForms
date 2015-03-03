@@ -13,6 +13,12 @@
 #pragma clang diagnostic ignored "-Wconversion"
 #pragma clang diagnostic ignored "-Wgnu"
 
+
+// Views
+#import "FXFormBaseView.h"
+#import "FXFormDefaultView.h"
+
+
 @class FXFormSection;
 
 @interface FXFormController ()

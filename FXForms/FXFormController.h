@@ -26,6 +26,7 @@
 - (NSIndexPath *)indexPathForField:(FXFormField *)field;
 - (id<FXFormFieldCell>)cellForRowAtIndexPath:(NSIndexPath *)indexPath;
 - (void)enumerateFieldsWithBlock:(void (^)(FXFormField *field, NSIndexPath *indexPath))block;
+- (id<FXFormFieldCell>)nextCellForCell:(id<FXFormFieldCell>)cell;
 
 // Cell Registration
 - (Class)cellClassForField:(FXFormField *)field;
@@ -46,9 +47,11 @@
 
 - (void)selectRowAtIndexPath:(NSIndexPath *)indexPath animated:(BOOL)animated scrollPosition:(UITableViewScrollPosition)scrollPosition;
 - (void)deselectRowAtIndexPath:(NSIndexPath *)indexPath animated:(BOOL)animated;
+- (void)didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
 
 - (void)insertRowsAtIndexPaths:(NSArray *)indexPaths;
-- (void)didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
+- (void)deleteRowsAtIndexPaths:(NSArray *)indexPaths;
+
 - (void)performAction:(SEL)selector withSender:(id)sender;
 
 @end

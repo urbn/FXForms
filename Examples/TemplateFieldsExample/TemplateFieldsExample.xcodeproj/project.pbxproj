@@ -25,6 +25,7 @@
 		D8A034C61A9E7797001BC5DF /* FXFormsDefines.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A034BA1A9E7797001BC5DF /* FXFormsDefines.m */; };
 		D8A034C71A9E7797001BC5DF /* FXFormTableCells.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A034BD1A9E7797001BC5DF /* FXFormTableCells.m */; };
 		D8A034C81A9E7797001BC5DF /* FXFormBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A034C01A9E7797001BC5DF /* FXFormBaseView.m */; };
+		D8E83A3D1AA6094700793C9B /* FXFormDefaultView.m in Sources */ = {isa = PBXBuildFile; fileRef = D8E83A3C1AA6094700793C9B /* FXFormDefaultView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,6 +66,8 @@
 		D8A034BD1A9E7797001BC5DF /* FXFormTableCells.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXFormTableCells.m; sourceTree = "<group>"; };
 		D8A034BF1A9E7797001BC5DF /* FXFormBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXFormBaseView.h; sourceTree = "<group>"; };
 		D8A034C01A9E7797001BC5DF /* FXFormBaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXFormBaseView.m; sourceTree = "<group>"; };
+		D8E83A3B1AA6094700793C9B /* FXFormDefaultView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXFormDefaultView.h; sourceTree = "<group>"; };
+		D8E83A3C1AA6094700793C9B /* FXFormDefaultView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXFormDefaultView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -201,6 +204,8 @@
 			children = (
 				D8A034BF1A9E7797001BC5DF /* FXFormBaseView.h */,
 				D8A034C01A9E7797001BC5DF /* FXFormBaseView.m */,
+				D8E83A3B1AA6094700793C9B /* FXFormDefaultView.h */,
+				D8E83A3C1AA6094700793C9B /* FXFormDefaultView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -276,6 +281,7 @@
 				D8A034C61A9E7797001BC5DF /* FXFormsDefines.m in Sources */,
 				D8A034C31A9E7797001BC5DF /* FXFormController.m in Sources */,
 				D8A034C41A9E7797001BC5DF /* FXFormField.m in Sources */,
+				D8E83A3D1AA6094700793C9B /* FXFormDefaultView.m in Sources */,
 				0178250818E1A0AE004C3815 /* RootFormViewController.m in Sources */,
 				0169995618A1663700E7085F /* main.m in Sources */,
 				D8A034C51A9E7797001BC5DF /* FXFormModels.m in Sources */,

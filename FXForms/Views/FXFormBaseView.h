@@ -16,19 +16,49 @@
  */
 @class FXFormController;
 
+typedef NS_ENUM(NSInteger, FXFormViewStyle) {
+    FXFormViewStyleDefault,
+    FXFormViewStyleValue1,
+    FXFormViewStyleValue2,
+    FXFormViewStyleSubtitle
+};
+
+typedef NS_ENUM(NSInteger, FXFormViewSelectionStyle) {
+    FXFormViewSelectionStyleNone,
+    FXFormViewSelectionStyleBlue,
+    FXFormViewSelectionStyleGray,
+    FXFormViewSelectionStyleDefault
+};
+
+typedef NS_ENUM(NSInteger, FXFormViewAccessoryType) {
+    FXFormViewAccessoryNone,
+    FXFormViewAccessoryDisclosureIndicator,
+    FXFormViewAccessoryDetailDisclosureIndicator,
+    FXFormViewAccessoryCheckmark,
+};
+
 @interface FXFormBaseView : UIView <FXFormFieldCell>
 
 @property (nonatomic, readonly) UIView *contentView;
 @property (nonatomic, readonly) UILabel *textLabel;
 @property (nonatomic, readonly) UILabel *detailTextLabel;
 
+@property (nonatomic, strong) UIView *selectedBackgroundView;
+@property (nonatomic, strong) UIView *accessoryView;
+
 @property (nonatomic, copy) NSIndexPath *indexPath;
 
 @property (nonatomic, assign, getter=isHighlighted) IBInspectable BOOL highlighted;
 @property (nonatomic, assign, getter=isSelected) IBInspectable BOOL selected;
 
+- (void)setAccessoryImage:(UIImage *)image forType:(FXFormViewAccessoryType)type UI_APPEARANCE_SELECTOR;
+
+@property (nonatomic, assign) FXFormViewAccessoryType accessoryType;
+@property (nonatomic, assign) FXFormViewSelectionStyle selectionStyle;
+@property (nonatomic, assign) FXFormViewStyle viewStyle;
 
 // Methods
+- (UIResponder<FXFormFieldCell> *)nextCell;
 
 /**
  *  This is our `sharedInit` method.  Any initialization you want to do for your
@@ -48,37 +78,6 @@
 
 
 // Subclasses
-@interface FXFormDefaultView : FXFormBaseView @end
-
-@interface FXFormTextFieldView : FXFormBaseView
-@property (nonatomic, readonly) UITextField *textField;
-@end
-
-@interface FXFormTextViewView : FXFormBaseView
-@property (nonatomic, readonly) UITextView *textView;
-@end
-
-@interface FXFormSwitchView : FXFormBaseView
-@property (nonatomic, readonly) UISwitch *switchControl;
-@end
-
-@interface FXFormStepperView : FXFormBaseView
-@property (nonatomic, readonly) UIStepper *stepper;
-@end
-
-@interface FXFormDatePickerView : FXFormBaseView
-@property (nonatomic, readonly) UIDatePicker *datePicker;
-@end
-
-@interface FXFormOptionPickerView : FXFormBaseView
-@property (nonatomic, readonly) UIPickerView *pickerView;
-@end
-
-@interface FXFormImagePickerView : FXFormBaseView
-@property (nonatomic, readonly) UIImageView *imagePickerView;
-@property (nonatomic, readonly) UIImagePickerController *imagePickerController;
-@end
-
 @interface FXFormSliderView : FXFormBaseView
 @property (nonatomic, readonly) UISlider *slider;
 @end

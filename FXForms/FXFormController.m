@@ -234,6 +234,29 @@
     return nil;
 }
 
+- (NSIndexPath *)indexPathForNextCellAfterCell:(id<FXFormFieldCell>)cell {
+    
+    __block NSIndexPath *indexPath = nil;
+    [self performUIChange:^(UITableView *tableView) {
+        indexPath = [tableView indexPathForCell:(UITableViewCell *)cell];
+    } collection:^(UICollectionView *collectionView) {
+        indexPath = [collectionView indexPathForCell:(UICollectionViewCell *)cell];
+    }];
+    
+    if (indexPath) {
+        
+        if ([self numberOfFieldsInSection:indexPath.section] > (NSUInteger)(indexPath.item + 1)) {
+            return [NSIndexPath indexPathForItem:indexPath.item+1 inSection:indexPath.section];
+        }
+        else if([self numberOfSections] > (NSUInteger)(indexPath.section + 1)) {
+            return [NSIndexPath indexPathForItem:0 inSection:indexPath.section+1];
+        }
+    }
+    
+    return nil;
+}
+
+
 - (id <FXFormFieldCell>)cellForField:(FXFormField *)field
 {
     //don't recycle cells - it would make things complicated
@@ -271,6 +294,14 @@
         cell = [collectionView cellForItemAtIndexPath:indexPath];
     }];
     return cell;
+}
+
+- (id<FXFormFieldCell>)nextCellForCell:(id<FXFormFieldCell>)cell {
+    NSIndexPath *nextIndexPath = [self indexPathForNextCellAfterCell:cell];
+    if (nextIndexPath) {
+        return [self cellForRowAtIndexPath:nextIndexPath];
+    }
+    return nil;
 }
 
 #pragma mark - Actions
@@ -330,6 +361,14 @@
     } collection:^(UICollectionView *collectionView) {
         [collectionView insertItemsAtIndexPaths:indexPaths];
     }];
+}
+
+- (void)deleteRowsAtIndexPaths:(NSArray *)indexPaths {
+  [self performUIChange:^(UITableView *tableView) {
+      [tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
+  } collection:^(UICollectionView *collectionView) {
+      [collectionView deleteItemsAtIndexPaths:indexPaths];
+  }];
 }
 
 - (void)refreshRowsInSections:(NSIndexSet *)indexSet {

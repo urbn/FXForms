@@ -600,7 +600,11 @@ void FXFormPreprocessFieldDictionary(NSMutableDictionary *dictionary)
     }
 }
 
-
+void FXFormSetLayoutMarginsIfPossible(UIView *v, UIEdgeInsets insets) {
+    if ([v respondsToSelector:@selector(layoutMargins)]) {
+        [v setValue:[NSValue valueWithUIEdgeInsets:insets] forKey:@"layoutMargins"];
+    }
+}
 
 
 

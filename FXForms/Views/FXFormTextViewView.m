@@ -22,7 +22,9 @@
     
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    self.textView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, 320, 21)];
+    self.textView = [[UITextView alloc] initWithFrame:self.bounds];
+    self.textView.textContainerInset = UIEdgeInsetsZero;
+    self.textView.textContainer.lineFragmentPadding = 0.f;
     self.textView.translatesAutoresizingMaskIntoConstraints = NO;
     self.textView.font = [UIFont systemFontOfSize:17];
     self.textView.textColor = [UIColor colorWithRed:0.275f green:0.376f blue:0.522f alpha:1.000f];
@@ -46,15 +48,21 @@
     return FXFormViewStyleSubtitle;
 }
 
+- (CGSize)intrinsicContentSize {
+    CGSize s = [super intrinsicContentSize];
+    return s;
+}
+
 - (void)updateConstraints {
     [super updateConstraints];
     
     UILabel *l = self.textLabel;
+    UILabel *dl = self.detailTextLabel;
     UITextView *tv = self.textView;
     
-    NSDictionary *views = NSDictionaryOfVariableBindings(l, tv);
+    NSDictionary *views = NSDictionaryOfVariableBindings(l, tv, dl);
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[tv]-|" options:0 metrics:nil views:views]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[l][tv]|" options:0 metrics:nil views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[l][tv]-|" options:0 metrics:nil views:views]];
 }
 
 - (void)update {
@@ -117,14 +125,14 @@
     //show/hide placeholder
     self.detailTextLabel.hidden = ([textView.text length] > 0);
     
-    //resize the tableview if required
+    //resize the (table/collection)view if required
+    [self.field.formController performUpdates:nil withCompletion:nil];
     
     //scroll to show cursor
-    [self.field.formController performUpdates:nil withCompletion:nil];
-    CGRect cursorRect = [self.textView caretRectForPosition:self.textView.selectedTextRange.end];
-    
+    CGRect rect = CGRectMake(CGRectGetMaxX(self.textView.bounds)-10, CGRectGetMaxY(self.textView.bounds), 10, 10);
     UIScrollView *sv = self.field.formController.scrollView;
-    [sv scrollRectToVisible:[sv convertRect:cursorRect fromView:self.textView] animated:YES];
+    [sv scrollRectToVisible:[sv convertRect:CGRectOffset(rect, 0, 20) fromView:self.textView] animated:YES];
+
 }
 
 - (void)textViewDidEndEditing:(__unused UITextView *)textView {

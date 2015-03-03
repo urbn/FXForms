@@ -19,8 +19,8 @@
 @implementation FXFormTextFieldView
 
 - (void)setup {
+    _textAlignment = NSTextAlignmentRight;
     [super setup];
-    
     self.viewStyle = FXFormViewStyleDefault;
     self.selectionStyle = FXFormViewSelectionStyleNone;
     
@@ -62,7 +62,7 @@
     self.textField.text = [self.field fieldDescription];
     
     self.textField.returnKeyType = UIReturnKeyDone;
-    self.textField.textAlignment = [self.field.title length]? NSTextAlignmentRight: NSTextAlignmentLeft;
+    self.textField.textAlignment = [self.field.title length] ? [self textAlignment] : NSTextAlignmentLeft;
     self.textField.secureTextEntry = NO;
     
     if ([self.field.type isEqualToString:FXFormFieldTypeText]) {
@@ -138,6 +138,15 @@
     {
         [super setValue:value forKeyPath:keyPath];
     }
+}
+
+- (void)setTextAlignment:(NSTextAlignment)textAlignment {
+    if (_textAlignment == textAlignment) {
+        return;
+    }
+    
+    _textAlignment = textAlignment;
+    [self update];
 }
 
 #pragma mark - TextField

@@ -11,7 +11,7 @@
 #import "FXTableFormController.h"
 #import "FXCollectionFormController.h"
 #import "RootForm.h"
-
+#import "FXFormViews.h"
 
 
 @implementation AppDelegate
@@ -32,6 +32,7 @@
 }
 
 - (IBAction)showCollectionVersion {
+    [[FXFormTextFieldView appearance] setTextAlignment:NSTextAlignmentLeft];
     FXFormCollectionViewController *cvc = [[FXFormCollectionViewController alloc] init];
     cvc.formController.form = [[RootForm alloc] init];
     [self presetnFormVC:cvc];

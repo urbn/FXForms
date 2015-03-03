@@ -443,10 +443,9 @@
 #pragma mark -
 #pragma mark Keyboard events
 
-- (id<FXFormFieldCell>)cellContainingView:(UIView *)view
-{
-    if (view == nil || [view isKindOfClass:[UITableViewCell class]])
-    {
+- (id<FXFormFieldCell>)cellContainingView:(UIView *)view {
+    
+    if (view == nil || [view isKindOfClass:[FXFormBaseView class]]) {
         return (id<FXFormFieldCell>)view;
     }
     return [self cellContainingView:view.superview];

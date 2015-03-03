@@ -237,6 +237,7 @@ IB_DESIGNABLE @interface FXFormBaseView()
     UILabel *dl = self.detailTextLabel;
     
     NSMutableDictionary *views = [NSDictionaryOfVariableBindings(cv, l, dl) mutableCopy];
+    NSDictionary *metrics = @{@"minLabelW": @(FXFormFieldMinLabelWidth),@"maxLabelW": @(FXFormFieldMaxLabelWidth)};
     if (av) {
         views[@"av"] = av;
     }
@@ -257,18 +258,18 @@ IB_DESIGNABLE @interface FXFormBaseView()
     switch (self.viewStyle) {
         case FXFormViewStyleValue1:
         case FXFormViewStyleValue2:
-            [cv addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[l]-[dl]-|" options:0 metrics:nil views:views]];
+            [cv addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[l(>=minLabelW,<=maxLabelW)]-[dl]-|" options:0 metrics:metrics views:views]];
             [cv addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[l]-|" options:0 metrics:nil views:views]];
             [cv addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[dl]-|" options:0 metrics:nil views:views]];
             break;
         case FXFormViewStyleSubtitle:
-            [cv addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[l]-<=0@999-|" options:0 metrics:nil views:views]];
-            [cv addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[dl]-<=0@999-|" options:0 metrics:nil views:views]];
+            [cv addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[l]-|" options:0 metrics:metrics views:views]];
+            [cv addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[dl]-|" options:0 metrics:nil views:views]];
             [cv addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[l][dl]->=8@999-|" options:0 metrics:nil views:views]];
             break;
         case FXFormViewStyleDefault:
             [cv addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[l]->=8@999-|" options:0 metrics:nil views:views]];
-            [cv addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[l]-<=0@999-|" options:0 metrics:nil views:views]];
+            [cv addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[l(>=minLabelW,<=maxLabelW)]-<=0@999-|" options:0 metrics:metrics views:views]];
     }
 }
 

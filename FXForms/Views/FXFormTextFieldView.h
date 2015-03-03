@@ -10,4 +10,6 @@
 
 @interface FXFormTextFieldView : FXFormBaseView
 @property (nonatomic, readonly) UITextField *textField;
+
+@property (nonatomic, assign) NSTextAlignment textAlignment UI_APPEARANCE_SELECTOR;
 @end

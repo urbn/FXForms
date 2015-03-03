@@ -9,7 +9,7 @@
     "git": "https://github.com/nicklockwood/FXForms.git",
     "tag": "1.2.12"
   },
-  "source_files": "FXForms/FXForms.{h,m}",
+  "source_files": "FXForms/**/*.{h,m}",
   "requires_arc": true,
   "platforms": {
     "ios": "5.0"

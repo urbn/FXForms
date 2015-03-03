@@ -207,6 +207,23 @@ IB_DESIGNABLE @interface FXFormBaseView()
     [dl setContentHuggingPriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
     [cv addSubview:dl];
     
+    UIView *v = [UIView new];
+    v.translatesAutoresizingMaskIntoConstraints = NO;
+    [self addSubview:v];
+    
+    UIView *v2 = [UIView new];
+    v2.translatesAutoresizingMaskIntoConstraints = NO;
+    [self addSubview:v2];
+    
+    v.backgroundColor = v2.backgroundColor = [UIColor lightGrayColor];
+    
+    NSDictionary *views = NSDictionaryOfVariableBindings(v, v2);
+    NSDictionary *metrics = @{@"h": @(0.45f)};
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(==-0.5)-[v(==h)]" options:0 metrics:metrics views:views]];
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[v2(==h)]-(==-0.5)-|" options:0 metrics:metrics views:views]];
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[v]|" options:0 metrics:nil views:views]];
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[v2]|" options:0 metrics:nil views:views]];
+    
     self.selectedBackgroundView = sv;
     self.contentView = cv;
     self.textLabel = l;
@@ -269,7 +286,7 @@ IB_DESIGNABLE @interface FXFormBaseView()
             break;
         case FXFormViewStyleDefault:
             [cv addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[l]->=8@999-|" options:0 metrics:nil views:views]];
-            [cv addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[l(>=minLabelW,<=maxLabelW)]-<=0@999-|" options:0 metrics:metrics views:views]];
+            [cv addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[l]-<=0@999-|" options:0 metrics:metrics views:views]];
     }
 }
 
@@ -372,6 +389,10 @@ IB_DESIGNABLE @interface FXFormBaseView()
     }
 }
 
+- (FXFormViewStyle)viewStyle {
+    return FXFormViewStyleDefault;
+}
+
 #pragma mark - Layout
 - (void)updateConstraints {
     [super updateConstraints];
@@ -382,11 +403,12 @@ IB_DESIGNABLE @interface FXFormBaseView()
     
     NSDictionary *views = NSDictionaryOfVariableBindings(l, dl, s);
     [s setContentHuggingPriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
-    [s setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
-    [s setContentHuggingPriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisVertical];
-    [l setContentHuggingPriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
-    [l setContentHuggingPriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisVertical];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[l]-[s]-|" options:0 metrics:nil views:views]];
+//    [s setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
+//    [s setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
+//    [l setContentCompressionResistancePriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
+//    [l setContentHuggingPriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisVertical];
+    [l setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[l][s]-|" options:0 metrics:nil views:views]];
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[s]-|" options:0 metrics:nil views:views]];
 }
 

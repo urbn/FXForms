@@ -182,7 +182,7 @@
     [self registerCellsIfPossible];
 }
 
-#pragma mark - Overrides 
+#pragma mark - Overrides
 - (FXFormBaseView *)formViewForField:(FXFormField *)field {
     //don't recycle cells - it would make things complicated
     Class cellClass = [self cellClassForField:field];
@@ -203,16 +203,24 @@
 }
 
 - (UIView *)headerViewForSection:(NSInteger)section {
-    UIView *header = (UIView *)[self sectionAtIndex:section];
+    UIView *header = (UIView *)[self sectionAtIndex:section].header;
+    if (!header) {
+        return nil;
+    }
+    
+    FXFormCollectionHeaderView *headerContainer = [[FXFormCollectionHeaderView alloc] initWithFrame:CGRectZero];
+    headerContainer.translatesAutoresizingMaskIntoConstraints = NO;
     if ([header isKindOfClass:[UIView class]]) {
-        return header;
+        header.translatesAutoresizingMaskIntoConstraints = NO;
+        NSDictionary *views = NSDictionaryOfVariableBindings(header);
+        [headerContainer addSubview:header];
+        [headerContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[header]|" options:0 metrics:nil views:views]];
+        [headerContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[header]|" options:0 metrics:nil views:views]];
     }
     else {
-        header = [[FXFormCollectionHeaderView alloc] initWithFrame:CGRectZero];
-        header.translatesAutoresizingMaskIntoConstraints = NO;
-        ((FXFormCollectionHeaderView *)header).label.text = [[header description] uppercaseString];
-        return header;
+        ((FXFormCollectionHeaderView *)headerContainer).label.text = [[header description] uppercaseString];
     }
+    return headerContainer;
 }
 
 - (id <FXFormFieldCell>)cellForField:(FXFormField *)field {
@@ -284,23 +292,30 @@
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
-    id header = nil;
     if ([self.delegate respondsToSelector:_cmd]) {
-        header = [(id<UICollectionViewDataSource>)self.delegate collectionView:collectionView viewForSupplementaryElementOfKind:kind atIndexPath:indexPath];
+        return (FXFormCollectionHeaderView *)[(id<UICollectionViewDataSource>)self.delegate collectionView:collectionView viewForSupplementaryElementOfKind:kind atIndexPath:indexPath];
     }
     
-    header = header ?: [self sectionAtIndex:indexPath.section].header;
+    id header = [self sectionAtIndex:indexPath.section].header;
+    if (!header) {
+        return nil;
+    }
+    
+    FXFormCollectionHeaderView *headerContainer = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:kind forIndexPath:indexPath];
     if ([header isKindOfClass:[UIView class]]) {
-        return header;
+        [(UIView *)header setTranslatesAutoresizingMaskIntoConstraints:NO];
+        [headerContainer addSubview:header];
+        
+        NSDictionary *views = NSDictionaryOfVariableBindings(header);
+        [headerContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[header]|" options:0 metrics:nil views:views]];
+        [headerContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[header]|" options:0 metrics:nil views:views]];
     }
     else {
         NSString *sectionTitle = [[header description] uppercaseString];
-        header = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:kind forIndexPath:indexPath];
-        [header label].text = sectionTitle;
-        return header;
+        [headerContainer label].text = sectionTitle;
     }
     
-    return nil;
+    return headerContainer;
 }
 
 #pragma mark - Delegate
@@ -387,7 +402,7 @@
         UICollectionViewFlowLayout *l = [UICollectionViewFlowLayout new];
         l.minimumInteritemSpacing = 0.f;
         l.minimumLineSpacing = 0.f;
-        l.sectionInset = UIEdgeInsetsMake(0.f, 0.f, 0.f, 0.f);
+        l.sectionInset = UIEdgeInsetsMake(0.f, 0.f, 15.f, 0.f);
         self.collectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds
                                                  collectionViewLayout:l];
         self.collectionView.backgroundColor = [UIColor groupTableViewBackgroundColor];

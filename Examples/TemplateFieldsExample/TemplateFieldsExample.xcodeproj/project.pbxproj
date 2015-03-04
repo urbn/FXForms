@@ -17,15 +17,22 @@
 		0169995C18A1663700E7085F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0169995B18A1663700E7085F /* Images.xcassets */; };
 		0178250818E1A0AE004C3815 /* RootFormViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0178250718E1A0AE004C3815 /* RootFormViewController.m */; };
 		CC566AAC18D76956002F2751 /* ISO3166CountryValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = CC566AAB18D76956002F2751 /* ISO3166CountryValueTransformer.m */; };
-		D8A034C11A9E7797001BC5DF /* FXCollectionFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A034AE1A9E7797001BC5DF /* FXCollectionFormController.m */; };
-		D8A034C21A9E7797001BC5DF /* FXTableFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A034B11A9E7797001BC5DF /* FXTableFormController.m */; };
-		D8A034C31A9E7797001BC5DF /* FXFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A034B31A9E7797001BC5DF /* FXFormController.m */; };
-		D8A034C41A9E7797001BC5DF /* FXFormField.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A034B51A9E7797001BC5DF /* FXFormField.m */; };
-		D8A034C51A9E7797001BC5DF /* FXFormModels.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A034B71A9E7797001BC5DF /* FXFormModels.m */; };
-		D8A034C61A9E7797001BC5DF /* FXFormsDefines.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A034BA1A9E7797001BC5DF /* FXFormsDefines.m */; };
-		D8A034C71A9E7797001BC5DF /* FXFormTableCells.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A034BD1A9E7797001BC5DF /* FXFormTableCells.m */; };
-		D8A034C81A9E7797001BC5DF /* FXFormBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = D8A034C01A9E7797001BC5DF /* FXFormBaseView.m */; };
-		D8E83A3D1AA6094700793C9B /* FXFormDefaultView.m in Sources */ = {isa = PBXBuildFile; fileRef = D8E83A3C1AA6094700793C9B /* FXFormDefaultView.m */; };
+		D85475BD1AA7AC4400ABFC29 /* FXCollectionFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = D85475981AA7AC4400ABFC29 /* FXCollectionFormController.m */; };
+		D85475BE1AA7AC4400ABFC29 /* FXFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = D854759A1AA7AC4400ABFC29 /* FXFormController.m */; };
+		D85475BF1AA7AC4400ABFC29 /* FXTableFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = D854759D1AA7AC4400ABFC29 /* FXTableFormController.m */; };
+		D85475C01AA7AC4400ABFC29 /* FXFormsDefines.m in Sources */ = {isa = PBXBuildFile; fileRef = D85475A01AA7AC4400ABFC29 /* FXFormsDefines.m */; };
+		D85475C11AA7AC4400ABFC29 /* FXFormField.m in Sources */ = {isa = PBXBuildFile; fileRef = D85475A41AA7AC4400ABFC29 /* FXFormField.m */; };
+		D85475C21AA7AC4400ABFC29 /* FXFormModels.m in Sources */ = {isa = PBXBuildFile; fileRef = D85475A61AA7AC4400ABFC29 /* FXFormModels.m */; };
+		D85475C31AA7AC4400ABFC29 /* FXFormBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = D85475A91AA7AC4400ABFC29 /* FXFormBaseView.m */; };
+		D85475C41AA7AC4400ABFC29 /* FXFormDatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = D85475AB1AA7AC4400ABFC29 /* FXFormDatePickerView.m */; };
+		D85475C51AA7AC4400ABFC29 /* FXFormDefaultView.m in Sources */ = {isa = PBXBuildFile; fileRef = D85475AD1AA7AC4400ABFC29 /* FXFormDefaultView.m */; };
+		D85475C61AA7AC4400ABFC29 /* FXFormImagePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = D85475AF1AA7AC4400ABFC29 /* FXFormImagePickerView.m */; };
+		D85475C71AA7AC4400ABFC29 /* FXFormOptionsPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = D85475B11AA7AC4400ABFC29 /* FXFormOptionsPickerView.m */; };
+		D85475C81AA7AC4400ABFC29 /* FXFormStepperView.m in Sources */ = {isa = PBXBuildFile; fileRef = D85475B31AA7AC4400ABFC29 /* FXFormStepperView.m */; };
+		D85475C91AA7AC4400ABFC29 /* FXFormSwitchView.m in Sources */ = {isa = PBXBuildFile; fileRef = D85475B51AA7AC4400ABFC29 /* FXFormSwitchView.m */; };
+		D85475CA1AA7AC4400ABFC29 /* FXFormTableCells.m in Sources */ = {isa = PBXBuildFile; fileRef = D85475B71AA7AC4400ABFC29 /* FXFormTableCells.m */; };
+		D85475CB1AA7AC4400ABFC29 /* FXFormTextFieldView.m in Sources */ = {isa = PBXBuildFile; fileRef = D85475B91AA7AC4400ABFC29 /* FXFormTextFieldView.m */; };
+		D85475CC1AA7AC4400ABFC29 /* FXFormTextViewView.m in Sources */ = {isa = PBXBuildFile; fileRef = D85475BB1AA7AC4400ABFC29 /* FXFormTextViewView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,27 +54,42 @@
 		0178250718E1A0AE004C3815 /* RootFormViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootFormViewController.m; sourceTree = "<group>"; };
 		CC566AAA18D76956002F2751 /* ISO3166CountryValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISO3166CountryValueTransformer.h; sourceTree = "<group>"; };
 		CC566AAB18D76956002F2751 /* ISO3166CountryValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISO3166CountryValueTransformer.m; sourceTree = "<group>"; };
-		D8A034AD1A9E7797001BC5DF /* FXCollectionFormController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXCollectionFormController.h; sourceTree = "<group>"; };
-		D8A034AE1A9E7797001BC5DF /* FXCollectionFormController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXCollectionFormController.m; sourceTree = "<group>"; };
-		D8A034AF1A9E7797001BC5DF /* FXFormController_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXFormController_Private.h; sourceTree = "<group>"; };
-		D8A034B01A9E7797001BC5DF /* FXTableFormController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXTableFormController.h; sourceTree = "<group>"; };
-		D8A034B11A9E7797001BC5DF /* FXTableFormController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXTableFormController.m; sourceTree = "<group>"; };
-		D8A034B21A9E7797001BC5DF /* FXFormController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXFormController.h; sourceTree = "<group>"; };
-		D8A034B31A9E7797001BC5DF /* FXFormController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXFormController.m; sourceTree = "<group>"; };
-		D8A034B41A9E7797001BC5DF /* FXFormField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXFormField.h; sourceTree = "<group>"; };
-		D8A034B51A9E7797001BC5DF /* FXFormField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXFormField.m; sourceTree = "<group>"; };
-		D8A034B61A9E7797001BC5DF /* FXFormModels.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXFormModels.h; sourceTree = "<group>"; };
-		D8A034B71A9E7797001BC5DF /* FXFormModels.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXFormModels.m; sourceTree = "<group>"; };
-		D8A034B81A9E7797001BC5DF /* FXForms.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXForms.h; sourceTree = "<group>"; };
-		D8A034B91A9E7797001BC5DF /* FXFormsDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXFormsDefines.h; sourceTree = "<group>"; };
-		D8A034BA1A9E7797001BC5DF /* FXFormsDefines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXFormsDefines.m; sourceTree = "<group>"; };
-		D8A034BB1A9E7797001BC5DF /* FXFormsProtocols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXFormsProtocols.h; sourceTree = "<group>"; };
-		D8A034BC1A9E7797001BC5DF /* FXFormTableCells.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXFormTableCells.h; sourceTree = "<group>"; };
-		D8A034BD1A9E7797001BC5DF /* FXFormTableCells.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXFormTableCells.m; sourceTree = "<group>"; };
-		D8A034BF1A9E7797001BC5DF /* FXFormBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXFormBaseView.h; sourceTree = "<group>"; };
-		D8A034C01A9E7797001BC5DF /* FXFormBaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXFormBaseView.m; sourceTree = "<group>"; };
-		D8E83A3B1AA6094700793C9B /* FXFormDefaultView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXFormDefaultView.h; sourceTree = "<group>"; };
-		D8E83A3C1AA6094700793C9B /* FXFormDefaultView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXFormDefaultView.m; sourceTree = "<group>"; };
+		D85475971AA7AC4400ABFC29 /* FXCollectionFormController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXCollectionFormController.h; sourceTree = "<group>"; };
+		D85475981AA7AC4400ABFC29 /* FXCollectionFormController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXCollectionFormController.m; sourceTree = "<group>"; };
+		D85475991AA7AC4400ABFC29 /* FXFormController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXFormController.h; sourceTree = "<group>"; };
+		D854759A1AA7AC4400ABFC29 /* FXFormController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXFormController.m; sourceTree = "<group>"; };
+		D854759B1AA7AC4400ABFC29 /* FXFormController_Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXFormController_Private.h; sourceTree = "<group>"; };
+		D854759C1AA7AC4400ABFC29 /* FXTableFormController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXTableFormController.h; sourceTree = "<group>"; };
+		D854759D1AA7AC4400ABFC29 /* FXTableFormController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXTableFormController.m; sourceTree = "<group>"; };
+		D854759E1AA7AC4400ABFC29 /* FXForms.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXForms.h; sourceTree = "<group>"; };
+		D854759F1AA7AC4400ABFC29 /* FXFormsDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXFormsDefines.h; sourceTree = "<group>"; };
+		D85475A01AA7AC4400ABFC29 /* FXFormsDefines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXFormsDefines.m; sourceTree = "<group>"; };
+		D85475A11AA7AC4400ABFC29 /* FXFormsProtocols.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXFormsProtocols.h; sourceTree = "<group>"; };
+		D85475A31AA7AC4400ABFC29 /* FXFormField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXFormField.h; sourceTree = "<group>"; };
+		D85475A41AA7AC4400ABFC29 /* FXFormField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXFormField.m; sourceTree = "<group>"; };
+		D85475A51AA7AC4400ABFC29 /* FXFormModels.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXFormModels.h; sourceTree = "<group>"; };
+		D85475A61AA7AC4400ABFC29 /* FXFormModels.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXFormModels.m; sourceTree = "<group>"; };
+		D85475A81AA7AC4400ABFC29 /* FXFormBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXFormBaseView.h; sourceTree = "<group>"; };
+		D85475A91AA7AC4400ABFC29 /* FXFormBaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXFormBaseView.m; sourceTree = "<group>"; };
+		D85475AA1AA7AC4400ABFC29 /* FXFormDatePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXFormDatePickerView.h; sourceTree = "<group>"; };
+		D85475AB1AA7AC4400ABFC29 /* FXFormDatePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXFormDatePickerView.m; sourceTree = "<group>"; };
+		D85475AC1AA7AC4400ABFC29 /* FXFormDefaultView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXFormDefaultView.h; sourceTree = "<group>"; };
+		D85475AD1AA7AC4400ABFC29 /* FXFormDefaultView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXFormDefaultView.m; sourceTree = "<group>"; };
+		D85475AE1AA7AC4400ABFC29 /* FXFormImagePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXFormImagePickerView.h; sourceTree = "<group>"; };
+		D85475AF1AA7AC4400ABFC29 /* FXFormImagePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXFormImagePickerView.m; sourceTree = "<group>"; };
+		D85475B01AA7AC4400ABFC29 /* FXFormOptionsPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXFormOptionsPickerView.h; sourceTree = "<group>"; };
+		D85475B11AA7AC4400ABFC29 /* FXFormOptionsPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXFormOptionsPickerView.m; sourceTree = "<group>"; };
+		D85475B21AA7AC4400ABFC29 /* FXFormStepperView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXFormStepperView.h; sourceTree = "<group>"; };
+		D85475B31AA7AC4400ABFC29 /* FXFormStepperView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXFormStepperView.m; sourceTree = "<group>"; };
+		D85475B41AA7AC4400ABFC29 /* FXFormSwitchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXFormSwitchView.h; sourceTree = "<group>"; };
+		D85475B51AA7AC4400ABFC29 /* FXFormSwitchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXFormSwitchView.m; sourceTree = "<group>"; };
+		D85475B61AA7AC4400ABFC29 /* FXFormTableCells.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXFormTableCells.h; sourceTree = "<group>"; };
+		D85475B71AA7AC4400ABFC29 /* FXFormTableCells.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXFormTableCells.m; sourceTree = "<group>"; };
+		D85475B81AA7AC4400ABFC29 /* FXFormTextFieldView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXFormTextFieldView.h; sourceTree = "<group>"; };
+		D85475B91AA7AC4400ABFC29 /* FXFormTextFieldView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXFormTextFieldView.m; sourceTree = "<group>"; };
+		D85475BA1AA7AC4400ABFC29 /* FXFormTextViewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXFormTextViewView.h; sourceTree = "<group>"; };
+		D85475BB1AA7AC4400ABFC29 /* FXFormTextViewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXFormTextViewView.m; sourceTree = "<group>"; };
+		D85475BC1AA7AC4400ABFC29 /* FXFormViews.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXFormViews.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,7 +109,7 @@
 		0169993D18A1663700E7085F = {
 			isa = PBXGroup;
 			children = (
-				0169997818A1664800E7085F /* FXForms */,
+				D85475951AA7AC4400ABFC29 /* FXForms */,
 				0169994F18A1663700E7085F /* Classes */,
 				0169994818A1663700E7085F /* Frameworks */,
 				0169994718A1663700E7085F /* Products */,
@@ -136,28 +158,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		0169997818A1664800E7085F /* FXForms */ = {
-			isa = PBXGroup;
-			children = (
-				D8A034AC1A9E7797001BC5DF /* Controllers */,
-				D8A034B21A9E7797001BC5DF /* FXFormController.h */,
-				D8A034B31A9E7797001BC5DF /* FXFormController.m */,
-				D8A034B41A9E7797001BC5DF /* FXFormField.h */,
-				D8A034B51A9E7797001BC5DF /* FXFormField.m */,
-				D8A034B61A9E7797001BC5DF /* FXFormModels.h */,
-				D8A034B71A9E7797001BC5DF /* FXFormModels.m */,
-				D8A034B81A9E7797001BC5DF /* FXForms.h */,
-				D8A034B91A9E7797001BC5DF /* FXFormsDefines.h */,
-				D8A034BA1A9E7797001BC5DF /* FXFormsDefines.m */,
-				D8A034BB1A9E7797001BC5DF /* FXFormsProtocols.h */,
-				D8A034BC1A9E7797001BC5DF /* FXFormTableCells.h */,
-				D8A034BD1A9E7797001BC5DF /* FXFormTableCells.m */,
-				D8A034BE1A9E7797001BC5DF /* Views */,
-			);
-			name = FXForms;
-			path = ../../FXForms;
-			sourceTree = "<group>";
-		};
 		016C1C9118D8C7F10086BFC1 /* Transformers */ = {
 			isa = PBXGroup;
 			children = (
@@ -187,25 +187,70 @@
 			name = Controllers;
 			sourceTree = "<group>";
 		};
-		D8A034AC1A9E7797001BC5DF /* Controllers */ = {
+		D85475951AA7AC4400ABFC29 /* FXForms */ = {
 			isa = PBXGroup;
 			children = (
-				D8A034AD1A9E7797001BC5DF /* FXCollectionFormController.h */,
-				D8A034AE1A9E7797001BC5DF /* FXCollectionFormController.m */,
-				D8A034AF1A9E7797001BC5DF /* FXFormController_Private.h */,
-				D8A034B01A9E7797001BC5DF /* FXTableFormController.h */,
-				D8A034B11A9E7797001BC5DF /* FXTableFormController.m */,
+				D85475961AA7AC4400ABFC29 /* Controllers */,
+				D854759E1AA7AC4400ABFC29 /* FXForms.h */,
+				D854759F1AA7AC4400ABFC29 /* FXFormsDefines.h */,
+				D85475A01AA7AC4400ABFC29 /* FXFormsDefines.m */,
+				D85475A11AA7AC4400ABFC29 /* FXFormsProtocols.h */,
+				D85475A21AA7AC4400ABFC29 /* Models */,
+				D85475A71AA7AC4400ABFC29 /* Views */,
+			);
+			name = FXForms;
+			path = ../../FXForms;
+			sourceTree = "<group>";
+		};
+		D85475961AA7AC4400ABFC29 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				D85475971AA7AC4400ABFC29 /* FXCollectionFormController.h */,
+				D85475981AA7AC4400ABFC29 /* FXCollectionFormController.m */,
+				D85475991AA7AC4400ABFC29 /* FXFormController.h */,
+				D854759A1AA7AC4400ABFC29 /* FXFormController.m */,
+				D854759B1AA7AC4400ABFC29 /* FXFormController_Private.h */,
+				D854759C1AA7AC4400ABFC29 /* FXTableFormController.h */,
+				D854759D1AA7AC4400ABFC29 /* FXTableFormController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
 		};
-		D8A034BE1A9E7797001BC5DF /* Views */ = {
+		D85475A21AA7AC4400ABFC29 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				D8A034BF1A9E7797001BC5DF /* FXFormBaseView.h */,
-				D8A034C01A9E7797001BC5DF /* FXFormBaseView.m */,
-				D8E83A3B1AA6094700793C9B /* FXFormDefaultView.h */,
-				D8E83A3C1AA6094700793C9B /* FXFormDefaultView.m */,
+				D85475A31AA7AC4400ABFC29 /* FXFormField.h */,
+				D85475A41AA7AC4400ABFC29 /* FXFormField.m */,
+				D85475A51AA7AC4400ABFC29 /* FXFormModels.h */,
+				D85475A61AA7AC4400ABFC29 /* FXFormModels.m */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		D85475A71AA7AC4400ABFC29 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D85475A81AA7AC4400ABFC29 /* FXFormBaseView.h */,
+				D85475A91AA7AC4400ABFC29 /* FXFormBaseView.m */,
+				D85475AA1AA7AC4400ABFC29 /* FXFormDatePickerView.h */,
+				D85475AB1AA7AC4400ABFC29 /* FXFormDatePickerView.m */,
+				D85475AC1AA7AC4400ABFC29 /* FXFormDefaultView.h */,
+				D85475AD1AA7AC4400ABFC29 /* FXFormDefaultView.m */,
+				D85475AE1AA7AC4400ABFC29 /* FXFormImagePickerView.h */,
+				D85475AF1AA7AC4400ABFC29 /* FXFormImagePickerView.m */,
+				D85475B01AA7AC4400ABFC29 /* FXFormOptionsPickerView.h */,
+				D85475B11AA7AC4400ABFC29 /* FXFormOptionsPickerView.m */,
+				D85475B21AA7AC4400ABFC29 /* FXFormStepperView.h */,
+				D85475B31AA7AC4400ABFC29 /* FXFormStepperView.m */,
+				D85475B41AA7AC4400ABFC29 /* FXFormSwitchView.h */,
+				D85475B51AA7AC4400ABFC29 /* FXFormSwitchView.m */,
+				D85475B61AA7AC4400ABFC29 /* FXFormTableCells.h */,
+				D85475B71AA7AC4400ABFC29 /* FXFormTableCells.m */,
+				D85475B81AA7AC4400ABFC29 /* FXFormTextFieldView.h */,
+				D85475B91AA7AC4400ABFC29 /* FXFormTextFieldView.m */,
+				D85475BA1AA7AC4400ABFC29 /* FXFormTextViewView.h */,
+				D85475BB1AA7AC4400ABFC29 /* FXFormTextViewView.m */,
+				D85475BC1AA7AC4400ABFC29 /* FXFormViews.h */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -273,20 +318,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D8A034C81A9E7797001BC5DF /* FXFormBaseView.m in Sources */,
-				D8A034C21A9E7797001BC5DF /* FXTableFormController.m in Sources */,
+				D85475C01AA7AC4400ABFC29 /* FXFormsDefines.m in Sources */,
+				D85475C81AA7AC4400ABFC29 /* FXFormStepperView.m in Sources */,
+				D85475CA1AA7AC4400ABFC29 /* FXFormTableCells.m in Sources */,
+				D85475BF1AA7AC4400ABFC29 /* FXTableFormController.m in Sources */,
+				D85475C11AA7AC4400ABFC29 /* FXFormField.m in Sources */,
+				D85475C21AA7AC4400ABFC29 /* FXFormModels.m in Sources */,
 				CC566AAC18D76956002F2751 /* ISO3166CountryValueTransformer.m in Sources */,
-				D8A034C71A9E7797001BC5DF /* FXFormTableCells.m in Sources */,
 				0169995A18A1663700E7085F /* AppDelegate.m in Sources */,
-				D8A034C61A9E7797001BC5DF /* FXFormsDefines.m in Sources */,
-				D8A034C31A9E7797001BC5DF /* FXFormController.m in Sources */,
-				D8A034C41A9E7797001BC5DF /* FXFormField.m in Sources */,
-				D8E83A3D1AA6094700793C9B /* FXFormDefaultView.m in Sources */,
 				0178250818E1A0AE004C3815 /* RootFormViewController.m in Sources */,
+				D85475C91AA7AC4400ABFC29 /* FXFormSwitchView.m in Sources */,
+				D85475CB1AA7AC4400ABFC29 /* FXFormTextFieldView.m in Sources */,
+				D85475CC1AA7AC4400ABFC29 /* FXFormTextViewView.m in Sources */,
+				D85475C31AA7AC4400ABFC29 /* FXFormBaseView.m in Sources */,
+				D85475C51AA7AC4400ABFC29 /* FXFormDefaultView.m in Sources */,
 				0169995618A1663700E7085F /* main.m in Sources */,
-				D8A034C51A9E7797001BC5DF /* FXFormModels.m in Sources */,
 				0168186818C5E7AF00273F1C /* RootForm.m in Sources */,
-				D8A034C11A9E7797001BC5DF /* FXCollectionFormController.m in Sources */,
+				D85475C71AA7AC4400ABFC29 /* FXFormOptionsPickerView.m in Sources */,
+				D85475BE1AA7AC4400ABFC29 /* FXFormController.m in Sources */,
+				D85475C61AA7AC4400ABFC29 /* FXFormImagePickerView.m in Sources */,
+				D85475BD1AA7AC4400ABFC29 /* FXCollectionFormController.m in Sources */,
+				D85475C41AA7AC4400ABFC29 /* FXFormDatePickerView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

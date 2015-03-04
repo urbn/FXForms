@@ -396,37 +396,39 @@
 #pragma mark -
 #pragma mark Action handler
 
-- (void)performAction:(SEL)selector withSender:(id)sender
-{
-    //walk up responder chain
-    id responder = self.scrollView;
-    while (responder)
-    {
-        if ([responder respondsToSelector:selector])
-        {
-            
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-            
-            [responder performSelector:selector withObject:sender];
-            
-#pragma clang diagnostic pop
-            
+- (void)performAction:(SEL)selector withSender:(id)sender {
+    // First check if the form itself responds to this selector
+    BOOL (^Responds)(id target) = ^(id target) {
+        if ([target respondsToSelector:selector]) {
+            [target performSelector:selector withObject:sender];
+            return YES;
+        }
+        return NO;
+    };
+    
+    // First check the form
+    if (Responds(self.form)) { return; }
+    
+    //walk up responder chain
+    id responder = self.scrollView;
+    while (responder) {
+        if (Responds(responder)) {
             return;
         }
         responder = [responder nextResponder];
     }
     
     //trye parent controller
-    if (self.parentFormController)
-    {
+    if (self.parentFormController) {
         [self.parentFormController performAction:selector withSender:sender];
     }
-    else
-    {
+    else {
         [NSException raise:FXFormsException format:@"No object in the responder chain responds to the selector %@", NSStringFromSelector(selector)];
     }
 }
+#pragma clang diagnostic pop
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {

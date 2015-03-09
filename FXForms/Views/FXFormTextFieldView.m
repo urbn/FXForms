@@ -49,9 +49,13 @@
     UITextField *tf = self.textField;
     NSDictionary *views = NSDictionaryOfVariableBindings(l, tf);
     [tf setContentHuggingPriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
-    [l setContentHuggingPriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisHorizontal];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[l]-[tf]-|" options:0 metrics:nil views:views]];
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[tf]|" options:0 metrics:nil views:views]];
+    [l setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisHorizontal];
+    [l setContentCompressionResistancePriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisHorizontal];
+    
+    // If we are not giving a title, then we do not want any space between the title and label
+    NSDictionary *metrics = @{@"s": ([self.field.title length] ? @8 : @0)};
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[l]-s-[tf]-|" options:0 metrics:metrics views:views]];
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[tf]-|" options:0 metrics:nil views:views]];
 }
 
 - (void)update {

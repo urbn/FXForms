@@ -203,9 +203,9 @@ IB_DESIGNABLE @interface FXFormBaseView()
     
     UILabel *l = [UILabel new];
     l.translatesAutoresizingMaskIntoConstraints = NO;
-    [l setContentHuggingPriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
+    [l setContentHuggingPriority:UILayoutPriorityDefaultLow forAxis:UILayoutConstraintAxisVertical];
     [l setContentHuggingPriority:UILayoutPriorityFittingSizeLevel forAxis:UILayoutConstraintAxisHorizontal];
-    [l setContentCompressionResistancePriority:UILayoutPriorityRequired forAxis:UILayoutConstraintAxisVertical];
+    [l setContentCompressionResistancePriority:UILayoutPriorityDefaultHigh forAxis:UILayoutConstraintAxisVertical];
     [cv addSubview:l];
     
     UILabel *dl = [UILabel new];
@@ -284,7 +284,7 @@ IB_DESIGNABLE @interface FXFormBaseView()
     switch (self.viewStyle) {
         case FXFormViewStyleValue1:
         case FXFormViewStyleValue2:
-            [cv addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[l(>=minLabelW,<=maxLabelW)]-[dl]-|" options:0 metrics:metrics views:views]];
+            [cv addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[l(<=maxLabelW)]-[dl]-|" options:0 metrics:metrics views:views]];
             [cv addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[l]-|" options:0 metrics:nil views:views]];
             [cv addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[dl]-|" options:0 metrics:nil views:views]];
             break;

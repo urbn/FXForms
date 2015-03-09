@@ -34,7 +34,7 @@
              
              //we want to add another group header here, and modify the auto-capitalization
              
-             @{FXFormFieldKey: @"name", FXFormFieldHeader: @"Details",
+             @{FXFormFieldKey: @"name", FXFormFieldTitle: @"", FXFormFieldHeader: @"Details",
                @"textField.autocapitalizationType": @(UITextAutocapitalizationTypeWords)},
              
              //this is a multiple choice field, so we'll need to provide some options

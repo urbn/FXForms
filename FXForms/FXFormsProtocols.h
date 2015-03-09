@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class FXFormField;
+@class FXFormBaseView;
 
 @protocol FXForm <NSObject>
 @optional
@@ -39,6 +40,7 @@
 
 @protocol FXFormFieldCell <NSObject>
 
+@property (nonatomic, strong) FXFormBaseView *formView;
 @property (nonatomic, strong) FXFormField *field;
 
 @optional

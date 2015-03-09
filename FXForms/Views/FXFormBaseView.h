@@ -48,6 +48,8 @@ typedef NS_ENUM(NSInteger, FXFormViewAccessoryType) {
 
 @property (nonatomic, copy) NSIndexPath *indexPath;
 
+@property (nonatomic, strong) UIColor *dividerColor;    // This is temporary, and will go away eventually
+
 @property (nonatomic, assign, getter=isHighlighted) IBInspectable BOOL highlighted;
 @property (nonatomic, assign, getter=isSelected) IBInspectable BOOL selected;
 

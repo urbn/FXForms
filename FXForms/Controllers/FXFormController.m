@@ -22,6 +22,8 @@
 {
     if ((self = [super init]))
     {
+        _cellBackgroundColor = [UIColor whiteColor];
+        _cellDividerColor = [UIColor lightGrayColor];
         _cellHeightCache = [NSMutableDictionary dictionary];
         _cellClassesForFieldTypes = [@{FXFormFieldTypeDefault: [FXFormDefaultCell class],
                                        FXFormFieldTypeText: [FXFormTextFieldCell class],
@@ -212,6 +214,18 @@
 - (NSUInteger)numberOfFieldsInSection:(NSUInteger)index
 {
     return [[self sectionAtIndex:index].fields count];
+}
+
+- (FXFormField *)fieldForKey:(NSString *)key {
+    __block FXFormField *foundField = nil;
+    [self enumerateFieldsWithBlock:^(FXFormField *field, __unused NSIndexPath *indexPath) {
+        if (foundField) return;
+        
+        if ([field.key isEqualToString:key]) {
+            foundField = field;
+        }
+    }];
+    return foundField;
 }
 
 - (FXFormField *)fieldForIndexPath:(NSIndexPath *)indexPath

@@ -17,13 +17,20 @@
 @property (nonatomic, weak) id<FXFormControllerDelegate> delegate;
 @property (nonatomic, strong) id<FXForm> form;
 
+// Colors
+@property (nonatomic, strong) UIColor *cellBackgroundColor UI_APPEARANCE_SELECTOR;
+@property (nonatomic, strong) UIColor *cellDividerColor UI_APPEARANCE_SELECTOR;
+
 @property (nonatomic, copy) NSArray *sections;
 
 // DataSource Methods
 - (NSUInteger)numberOfSections;
 - (NSUInteger)numberOfFieldsInSection:(NSUInteger)section;
+
+- (FXFormField *)fieldForKey:(NSString *)key;
 - (FXFormField *)fieldForIndexPath:(NSIndexPath *)indexPath;
 - (NSIndexPath *)indexPathForField:(FXFormField *)field;
+
 - (id<FXFormFieldCell>)cellForRowAtIndexPath:(NSIndexPath *)indexPath;
 - (void)enumerateFieldsWithBlock:(void (^)(FXFormField *field, NSIndexPath *indexPath))block;
 - (id<FXFormFieldCell>)nextCellForCell:(id<FXFormFieldCell>)cell;

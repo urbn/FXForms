@@ -17,6 +17,8 @@ IB_DESIGNABLE @interface FXFormBaseView()
 @property (nonatomic, strong, readwrite) UILabel *textLabel;
 @property (nonatomic, strong, readwrite) UILabel *detailTextLabel;
 
+@property (nonatomic, strong) NSSet *dividerLines;
+
 @property (nonatomic, strong) NSMutableDictionary *accessoryImagesMap;
 
 // Funsies
@@ -123,6 +125,11 @@ IB_DESIGNABLE @interface FXFormBaseView()
     }
 }
 
+- (void)setDividerColor:(UIColor *)dividerColor {
+    _dividerColor = dividerColor;
+    [self.dividerLines makeObjectsPerformSelector:@selector(setBackgroundColor:) withObject:dividerColor];
+}
+
 #pragma mark - Getters
 - (UIView *)accessoryView {
     if (!_accessoryView && self.accessoryType != FXFormViewAccessoryNone) {
@@ -215,10 +222,12 @@ IB_DESIGNABLE @interface FXFormBaseView()
     v2.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview:v2];
     
-    v.backgroundColor = v2.backgroundColor = [UIColor lightGrayColor];
+    self.dividerLines = [NSSet setWithObjects:v, v2, nil];
+    
+    v.backgroundColor = v2.backgroundColor = self.dividerColor;
     
     NSDictionary *views = NSDictionaryOfVariableBindings(v, v2);
-    NSDictionary *metrics = @{@"h": @(0.45f)};
+    NSDictionary *metrics = @{@"h": @(0.5f)};
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(==-0.5)-[v(==h)]" options:0 metrics:metrics views:views]];
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[v2(==h)]-(==-0.5)-|" options:0 metrics:metrics views:views]];
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[v]|" options:0 metrics:nil views:views]];

@@ -256,9 +256,10 @@
 
 - (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    cell.contentView.backgroundColor = [UIColor whiteColor];
+    cell.contentView.backgroundColor = self.cellBackgroundColor;
     FXFormField *field = [self fieldForIndexPath:indexPath];
     FXFormBaseView *v = [self formViewForField:field];
+    v.dividerColor = self.cellDividerColor;
     [(FXFormCollectionCell *)cell setFormView: v];
     
     //forward to delegate

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Yl0-Qg-aER">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Yl0-Qg-aER">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -38,20 +38,89 @@
                                     <action selector="showCollectionVersion" destination="a69-Xn-QCm" eventType="touchUpInside" id="neU-Gb-xAE"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="juD-SC-PCZ">
+                                <rect key="frame" x="249" y="184" width="103" height="30"/>
+                                <state key="normal" title="Custom Shizzy">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="TV7-lI-oyM" kind="show" id="EfV-Lk-Ar3"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="juD-SC-PCZ" firstAttribute="top" secondItem="aQ2-8d-AHA" secondAttribute="bottom" constant="37" id="4YY-36-InO"/>
                             <constraint firstItem="IX0-AG-DuE" firstAttribute="top" secondItem="a4f-iF-WIc" secondAttribute="bottom" constant="45" id="DHe-Sp-Nv5"/>
                             <constraint firstItem="aQ2-8d-AHA" firstAttribute="width" secondItem="IX0-AG-DuE" secondAttribute="width" id="JDw-47-D8n"/>
                             <constraint firstItem="aQ2-8d-AHA" firstAttribute="centerX" secondItem="IX0-AG-DuE" secondAttribute="centerX" id="Mb9-bG-bwK"/>
                             <constraint firstItem="aQ2-8d-AHA" firstAttribute="top" secondItem="IX0-AG-DuE" secondAttribute="bottom" constant="22" id="XHy-gy-OW9"/>
                             <constraint firstAttribute="centerX" secondItem="IX0-AG-DuE" secondAttribute="centerX" id="f6L-11-qav"/>
+                            <constraint firstItem="aQ2-8d-AHA" firstAttribute="centerX" secondItem="juD-SC-PCZ" secondAttribute="centerX" constant="-0.5" id="rfG-nd-P1k"/>
                         </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a69-Xn-QCm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="581" y="463"/>
+            <point key="canvasLocation" x="144" y="442"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Me9-s8-5gE">
+            <objects>
+                <navigationController toolbarHidden="NO" id="TV7-lI-oyM" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ASX-B7-Axc">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="1kh-Zd-SNK">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
+                    <connections>
+                        <segue destination="ffg-Yg-33o" kind="relationship" relationship="rootViewController" id="D2n-Pd-1nI"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BRx-8P-JiU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="436" y="1180"/>
+        </scene>
+        <!--Custom ShizzyVC-->
+        <scene sceneID="eqc-kZ-6eW">
+            <objects>
+                <viewController id="ffg-Yg-33o" customClass="CustomShizzyVC" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="9Tv-eR-1V0"/>
+                        <viewControllerLayoutGuide type="bottom" id="TTw-Ns-Bzf"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="wrt-Ni-9Qd">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <toolbarItems>
+                        <barButtonItem title="Login" id="zXf-MO-8t7">
+                            <connections>
+                                <action selector="loginForm:" destination="ffg-Yg-33o" id="Zmy-wv-vYn"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="2Jk-Dg-g94"/>
+                        <barButtonItem title="Forgot Pass" id="5B2-oz-nQl">
+                            <connections>
+                                <action selector="forgotPass:" destination="ffg-Yg-33o" id="8m7-cn-2f5"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="jBj-Kv-Ifa"/>
+                        <barButtonItem title="Registration" id="oAP-nJ-P4Y">
+                            <connections>
+                                <action selector="reg:" destination="ffg-Yg-33o" id="xz1-pd-dKm"/>
+                            </connections>
+                        </barButtonItem>
+                    </toolbarItems>
+                    <navigationItem key="navigationItem" id="4DD-7P-pK9"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LKl-v1-C4A" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="995" y="767"/>
         </scene>
     </scenes>
 </document>

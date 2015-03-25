@@ -1,4 +1,4 @@
-//
+    //
 //  FXFormController.m
 //  BasicExample
 //
@@ -248,8 +248,38 @@
     return nil;
 }
 
-- (NSIndexPath *)indexPathForNextCellAfterCell:(id<FXFormFieldCell>)cell {
+- (NSIndexPath *)indexPathForNextResponderCellAfterCell:(id<FXFormFieldCell>)cell {
     
+    __block NSIndexPath *indexPath = nil;
+    [self performUIChange:^(UITableView *tableView) {
+        indexPath = [tableView indexPathForCell:(UITableViewCell *)cell];
+    } collection:^(UICollectionView *collectionView) {
+        indexPath = [collectionView indexPathForCell:(UICollectionViewCell *)cell];
+    }];
+    
+    if (indexPath) {
+        if ([self numberOfFieldsInSection:indexPath.section] > (NSUInteger)(indexPath.item + 1)) {
+            NSIndexPath *ip = [NSIndexPath indexPathForItem:indexPath.item + 1 inSection:indexPath.section];
+            FXFormBaseCell *nextCell = (FXFormBaseCell *)[self cellForRowAtIndexPath:ip];
+            NSLog(@"nextField: %@", nextCell.field.type);
+
+            // Must skip over fields that cannot becomeFirstResponder
+            if (![nextCell canBecomeFirstResponder]) {
+                FXFormBaseCell *nextCell2 = (FXFormBaseCell *)[self cellForRowAtIndexPath:ip];
+                ip = [self indexPathForNextResponderCellAfterCell:nextCell2];
+            }
+            
+            return ip;
+        }
+        else if([self numberOfSections] > (NSUInteger)(indexPath.section + 1)) {
+            return [NSIndexPath indexPathForItem:0 inSection:indexPath.section + 1];
+        }
+    }
+    
+    return nil;
+}
+
+- (NSIndexPath *)indexPathForNextCellAfterCell:(id<FXFormFieldCell>)cell {
     __block NSIndexPath *indexPath = nil;
     [self performUIChange:^(UITableView *tableView) {
         indexPath = [tableView indexPathForCell:(UITableViewCell *)cell];
@@ -260,10 +290,60 @@
     if (indexPath) {
         
         if ([self numberOfFieldsInSection:indexPath.section] > (NSUInteger)(indexPath.item + 1)) {
-            return [NSIndexPath indexPathForItem:indexPath.item+1 inSection:indexPath.section];
+            return [NSIndexPath indexPathForItem:indexPath.item + 1 inSection:indexPath.section];
         }
         else if([self numberOfSections] > (NSUInteger)(indexPath.section + 1)) {
-            return [NSIndexPath indexPathForItem:0 inSection:indexPath.section+1];
+            return [NSIndexPath indexPathForItem:0 inSection:indexPath.section + 1];
+        }
+    }
+    
+    return nil;
+}
+
+- (NSIndexPath *)indexPathForPreviousResponderCellAfterCell:(id<FXFormFieldCell>)cell {
+    __block NSIndexPath *indexPath = nil;
+    [self performUIChange:^(UITableView *tableView) {
+        indexPath = [tableView indexPathForCell:(UITableViewCell *)cell];
+    } collection:^(UICollectionView *collectionView) {
+        indexPath = [collectionView indexPathForCell:(UICollectionViewCell *)cell];
+    }];
+    
+    if (indexPath) {
+        if ([self numberOfFieldsInSection:indexPath.section] > (NSUInteger)(indexPath.item - 1)) {
+            NSIndexPath *ip = [NSIndexPath indexPathForItem:indexPath.item - 1 inSection:indexPath.section];
+            FXFormBaseCell *nextCell = (FXFormBaseCell *)[self cellForRowAtIndexPath:ip];
+            
+            // Must skip over fields that cannot becomeFirstResponder
+            if (![nextCell canBecomeFirstResponder]) {
+                FXFormBaseCell *nextCell2 = (FXFormBaseCell *)[self cellForRowAtIndexPath:ip];
+                ip = [self indexPathForPreviousResponderCellAfterCell:nextCell2];
+            }
+            
+            return ip;
+        }
+        else if([self numberOfSections] > (NSUInteger)(indexPath.section)) {
+            return [NSIndexPath indexPathForItem:0 inSection:indexPath.section - 1];
+        }
+    }
+    
+    return nil;
+}
+
+- (NSIndexPath *)indexPathForPreviousCellAfterCell:(id<FXFormFieldCell>)cell {
+    
+    __block NSIndexPath *indexPath = nil;
+    [self performUIChange:^(UITableView *tableView) {
+        indexPath = [tableView indexPathForCell:(UITableViewCell *)cell];
+    } collection:^(UICollectionView *collectionView) {
+        indexPath = [collectionView indexPathForCell:(UICollectionViewCell *)cell];
+    }];
+    
+    if (indexPath) {
+        if ([self numberOfFieldsInSection:indexPath.section] > (NSUInteger)(indexPath.item - 1)) {
+            return [NSIndexPath indexPathForItem:indexPath.item - 1 inSection:indexPath.section];
+        }
+        else if([self numberOfSections] > (NSUInteger)(indexPath.section)) {
+            return [NSIndexPath indexPathForItem:0 inSection:indexPath.section - 1];
         }
     }
     
@@ -310,12 +390,48 @@
     return cell;
 }
 
+- (id<FXFormFieldCell>)nextResponderCellForCell:(id<FXFormFieldCell>)cell {
+    NSIndexPath *nextIndexPath = [self indexPathForNextResponderCellAfterCell:cell];
+    if (nextIndexPath) {
+        return [self cellForRowAtIndexPath:nextIndexPath];
+    }
+    
+    return nil;
+}
+
 - (id<FXFormFieldCell>)nextCellForCell:(id<FXFormFieldCell>)cell {
     NSIndexPath *nextIndexPath = [self indexPathForNextCellAfterCell:cell];
     if (nextIndexPath) {
         return [self cellForRowAtIndexPath:nextIndexPath];
     }
+    
     return nil;
+}
+
+- (id<FXFormFieldCell>)previousResponderCellForCell:(id<FXFormFieldCell>)cell {
+    NSIndexPath *prevIndexPath = [self indexPathForPreviousResponderCellAfterCell:cell];
+    if (prevIndexPath) {
+        return [self cellForRowAtIndexPath:prevIndexPath];
+    }
+    
+    return nil;
+}
+
+- (id<FXFormFieldCell>)previousCellForCell:(id<FXFormFieldCell>)cell {
+    NSIndexPath *prevIndexPath = [self indexPathForPreviousCellAfterCell:cell];
+    if (prevIndexPath) {
+        return [self cellForRowAtIndexPath:prevIndexPath];
+    }
+    
+    return nil;
+}
+
+- (id<FXFormFieldCell>)nextCell {
+    return [self nextResponderCellForCell:self.currentResponderCell];
+}
+
+- (id<FXFormFieldCell>)previousCell {
+    return [self previousResponderCellForCell:self.currentResponderCell];
 }
 
 #pragma mark - Actions
@@ -378,11 +494,11 @@
 }
 
 - (void)deleteRowsAtIndexPaths:(NSArray *)indexPaths {
-  [self performUIChange:^(UITableView *tableView) {
-      [tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
-  } collection:^(UICollectionView *collectionView) {
-      [collectionView deleteItemsAtIndexPaths:indexPaths];
-  }];
+    [self performUIChange:^(UITableView *tableView) {
+        [tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
+    } collection:^(UICollectionView *collectionView) {
+        [collectionView deleteItemsAtIndexPaths:indexPaths];
+    }];
 }
 
 - (void)refreshRowsInSections:(NSIndexSet *)indexSet {

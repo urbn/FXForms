@@ -9,7 +9,8 @@
 #import "FXFormTextFieldView.h"
 #import "FXFormsDefines.h"
 #import "FXFormField.h"
-
+#import "FXFormController.h"
+#import "FXFormController_Private.h"
 
 @interface FXFormTextFieldView() <UITextFieldDelegate>
 @property (nonatomic, strong) UITextField *textField;
@@ -167,6 +168,12 @@
         
         self.textField.returnKeyType = returnKeyType;
     }
+    
+    // Update the currentResponderCell on the formController
+    NSIndexPath *indexPathForCell = [self.field.formController indexPathForField:self.field];
+    id <FXFormFieldCell> currentCell = [self.field.formController cellForRowAtIndexPath:indexPathForCell];
+    self.field.formController.currentResponderCell = currentCell;
+    
     return YES;
 }
 

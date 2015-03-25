@@ -30,7 +30,7 @@
 @property (nonatomic, strong) NSMutableDictionary *cellClassesForFieldClasses;
 @property (nonatomic, strong) NSMutableDictionary *controllerClassesForFieldTypes;
 @property (nonatomic, strong) NSMutableDictionary *controllerClassesForFieldClasses;
-@property (nonatomic, strong) id<FXFormFieldCell> currentResponderCell;
+@property (nonatomic, weak) id<FXFormFieldCell> currentResponderCell;
 
 - (FXFormSection *)sectionAtIndex:(NSUInteger)index;
 - (id <FXFormFieldCell>)cellForField:(FXFormField *)field;

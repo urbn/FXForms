@@ -1,4 +1,4 @@
-    //
+//
 //  FXFormController.m
 //  BasicExample
 //
@@ -261,12 +261,10 @@
         if ([self numberOfFieldsInSection:indexPath.section] > (NSUInteger)(indexPath.item + 1)) {
             NSIndexPath *ip = [NSIndexPath indexPathForItem:indexPath.item + 1 inSection:indexPath.section];
             FXFormBaseCell *nextCell = (FXFormBaseCell *)[self cellForRowAtIndexPath:ip];
-            NSLog(@"nextField: %@", nextCell.field.type);
 
             // Must skip over fields that cannot becomeFirstResponder
             if (![nextCell canBecomeFirstResponder]) {
-                FXFormBaseCell *nextCell2 = (FXFormBaseCell *)[self cellForRowAtIndexPath:ip];
-                ip = [self indexPathForNextResponderCellAfterCell:nextCell2];
+                ip = [self indexPathForNextResponderCellAfterCell:nextCell];
             }
             
             return ip;
@@ -300,7 +298,7 @@
     return nil;
 }
 
-- (NSIndexPath *)indexPathForPreviousResponderCellAfterCell:(id<FXFormFieldCell>)cell {
+- (NSIndexPath *)indexPathForPreviousResponderCellBeforeCell:(id<FXFormFieldCell>)cell {
     __block NSIndexPath *indexPath = nil;
     [self performUIChange:^(UITableView *tableView) {
         indexPath = [tableView indexPathForCell:(UITableViewCell *)cell];
@@ -311,12 +309,11 @@
     if (indexPath) {
         if ([self numberOfFieldsInSection:indexPath.section] > (NSUInteger)(indexPath.item - 1)) {
             NSIndexPath *ip = [NSIndexPath indexPathForItem:indexPath.item - 1 inSection:indexPath.section];
-            FXFormBaseCell *nextCell = (FXFormBaseCell *)[self cellForRowAtIndexPath:ip];
+            FXFormBaseCell *beforeCell = (FXFormBaseCell *)[self cellForRowAtIndexPath:ip];
             
             // Must skip over fields that cannot becomeFirstResponder
-            if (![nextCell canBecomeFirstResponder]) {
-                FXFormBaseCell *nextCell2 = (FXFormBaseCell *)[self cellForRowAtIndexPath:ip];
-                ip = [self indexPathForPreviousResponderCellAfterCell:nextCell2];
+            if (![beforeCell canBecomeFirstResponder]) {
+                ip = [self indexPathForPreviousResponderCellBeforeCell:beforeCell];
             }
             
             return ip;
@@ -329,8 +326,7 @@
     return nil;
 }
 
-- (NSIndexPath *)indexPathForPreviousCellAfterCell:(id<FXFormFieldCell>)cell {
-    
+- (NSIndexPath *)indexPathForPreviousCellBeforeCell:(id<FXFormFieldCell>)cell {
     __block NSIndexPath *indexPath = nil;
     [self performUIChange:^(UITableView *tableView) {
         indexPath = [tableView indexPathForCell:(UITableViewCell *)cell];
@@ -349,7 +345,6 @@
     
     return nil;
 }
-
 
 - (id <FXFormFieldCell>)cellForField:(FXFormField *)field
 {
@@ -409,7 +404,7 @@
 }
 
 - (id<FXFormFieldCell>)previousResponderCellForCell:(id<FXFormFieldCell>)cell {
-    NSIndexPath *prevIndexPath = [self indexPathForPreviousResponderCellAfterCell:cell];
+    NSIndexPath *prevIndexPath = [self indexPathForPreviousResponderCellBeforeCell:cell];
     if (prevIndexPath) {
         return [self cellForRowAtIndexPath:prevIndexPath];
     }
@@ -418,7 +413,7 @@
 }
 
 - (id<FXFormFieldCell>)previousCellForCell:(id<FXFormFieldCell>)cell {
-    NSIndexPath *prevIndexPath = [self indexPathForPreviousCellAfterCell:cell];
+    NSIndexPath *prevIndexPath = [self indexPathForPreviousCellBeforeCell:cell];
     if (prevIndexPath) {
         return [self cellForRowAtIndexPath:prevIndexPath];
     }

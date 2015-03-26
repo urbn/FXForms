@@ -8,6 +8,7 @@
 
 #import "FXFormDatePickerView.h"
 #import "FXFormController.h"
+#import "FXFormController_Private.h"
 #import "FXFormsDefines.h"
 #import "FXFormField.h"
 
@@ -66,6 +67,11 @@
     }
     
     [formController deselectRowAtIndexPath:nil animated:YES];
+    
+    // Update the currentResponderCell on the formController
+    NSIndexPath *indexPathForCell = [self.field.formController indexPathForField:self.field];
+    id <FXFormFieldCell> currentCell = [self.field.formController cellForRowAtIndexPath:indexPathForCell];
+    self.field.formController.currentResponderCell = currentCell;
 }
 
 @end

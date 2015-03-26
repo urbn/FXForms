@@ -10,6 +10,7 @@
 #import "FXFormController.h"
 #import "FXFormsDefines.h"
 #import "FXFormField.h"
+#import "FXFormController_Private.h"
 
 @interface FXFormOptionPickerView () <UIPickerViewDataSource, UIPickerViewDelegate>
 @property (nonatomic, strong) UIPickerView *pickerView;
@@ -49,6 +50,11 @@
         [self resignFirstResponder];
     }
     [formController deselectRowAtIndexPath:nil animated:YES];
+    
+    // Update the currentResponderCell on the formController
+    NSIndexPath *indexPathForCell = [self.field.formController indexPathForField:self.field];
+    id <FXFormFieldCell> currentCell = [self.field.formController cellForRowAtIndexPath:indexPathForCell];
+    self.field.formController.currentResponderCell = currentCell;
 }
 
 #pragma mark - Responder chain

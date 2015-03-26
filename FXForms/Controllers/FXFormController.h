@@ -61,4 +61,8 @@
 
 - (void)performAction:(SEL)selector withSender:(id)sender;
 
+// AccessoryView helpers
+- (id<FXFormFieldCell>)nextCell;
+- (id<FXFormFieldCell>)previousCell;
+
 @end

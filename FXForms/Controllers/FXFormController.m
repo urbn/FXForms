@@ -307,7 +307,7 @@
     }];
     
     if (indexPath) {
-        if ([self numberOfFieldsInSection:indexPath.section] > (NSUInteger)(indexPath.item - 1)) {
+        if ([self numberOfFieldsInSection:indexPath.section] > (NSUInteger)(indexPath.item - 1) && indexPath.item > 0) {
             NSIndexPath *ip = [NSIndexPath indexPathForItem:indexPath.item - 1 inSection:indexPath.section];
             FXFormBaseCell *beforeCell = (FXFormBaseCell *)[self cellForRowAtIndexPath:ip];
             
@@ -318,7 +318,7 @@
             
             return ip;
         }
-        else if([self numberOfSections] > (NSUInteger)(indexPath.section)) {
+        else if([self numberOfSections] > (NSUInteger)(indexPath.section) && indexPath.section > 0) {
             return [NSIndexPath indexPathForItem:0 inSection:indexPath.section - 1];
         }
     }

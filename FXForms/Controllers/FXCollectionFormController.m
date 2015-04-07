@@ -211,11 +211,9 @@
     FXFormCollectionHeaderView *headerContainer = [[FXFormCollectionHeaderView alloc] initWithFrame:CGRectZero];
     headerContainer.translatesAutoresizingMaskIntoConstraints = NO;
     if ([header isKindOfClass:[UIView class]]) {
-        header.translatesAutoresizingMaskIntoConstraints = NO;
-        NSDictionary *views = NSDictionaryOfVariableBindings(header);
-        [headerContainer addSubview:header];
-        [headerContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[header]|" options:0 metrics:nil views:views]];
-        [headerContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[header]|" options:0 metrics:nil views:views]];
+        // Here we just need to set a height constraint to figure this out.
+        CGFloat height = [header systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
+        [headerContainer addConstraint:[NSLayoutConstraint constraintWithItem:headerContainer attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.f constant:height]];
     }
     else {
         ((FXFormCollectionHeaderView *)headerContainer).label.text = [[header description] uppercaseString];

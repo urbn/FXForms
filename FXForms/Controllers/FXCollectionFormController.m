@@ -341,7 +341,7 @@
     }
     
     //forward to delegate
-    if ([self.delegate respondsToSelector:@selector(tableView:didSelectRowAtIndexPath:)]) {
+    if ([self.delegate respondsToSelector:@selector(collectionView:didSelectItemAtIndexPath:)]) {
         [(id<UICollectionViewDelegate>)self.delegate collectionView:collectionView didSelectItemAtIndexPath:indexPath];
     }
 }

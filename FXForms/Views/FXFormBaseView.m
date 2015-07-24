@@ -30,6 +30,7 @@ IB_DESIGNABLE @interface FXFormBaseView()
 
 
 @implementation FXFormBaseView
+@synthesize formView = _formView;
 @synthesize accessoryView = _accessoryView;
 @synthesize field = _field;
 
@@ -301,7 +302,8 @@ IB_DESIGNABLE @interface FXFormBaseView()
 
 #pragma mark - Responders
 - (UIResponder<FXFormFieldCell> *)nextCell {
-    return [[[self field] formController] nextCellForCell:self.superview.superview];
+    id <FXFormFieldCell> currentCell = (id<FXFormFieldCell>)self.superview.superview;
+    return [[[self field] formController] nextCellForCell:currentCell];
 }
 
 #pragma mark - IB Inspect

@@ -21,6 +21,7 @@
 
 
 @implementation FXFormBaseCell
+@synthesize formView = _formView;
 @synthesize field = _field;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier

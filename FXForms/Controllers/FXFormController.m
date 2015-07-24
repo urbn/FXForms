@@ -87,7 +87,6 @@
         }
     }
     
-#warning This is just temporary
     if ([self isKindOfClass:[FXTableFormController class]]) {
         // For now we want to ensure anything ending in "View" gets replaced with the "Cell" versions
         NSString *classString = NSStringFromClass(aClass);

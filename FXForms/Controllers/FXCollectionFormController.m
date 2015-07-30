@@ -14,6 +14,7 @@
 #import "FXFormModels.h"
 
 #import "FXFormViews.h"
+#import "FXFormField.h"
 
 @interface FXFormCollectionCell : UICollectionViewCell <FXFormFieldCell>
 @property (nonatomic, strong) FXFormBaseView *formView;
@@ -319,13 +320,13 @@
 
 #pragma mark - Delegate
 - (BOOL)collectionView:(__unused UICollectionView *)collectionView canPerformAction:(__unused SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(__unused id)sender {
-    FXFormBaseView *v = [self formViewForField:[self fieldForIndexPath:indexPath]];
-    return [v.field isCollectionType] || [v.field isOrderedCollectionType];
+    FXFormField *field = [self fieldForIndexPath:indexPath];
+    return [field isCollectionType] || [field isOrderedCollectionType];
 }
 
 - (BOOL)collectionView:(__unused UICollectionView *)collectionView shouldShowMenuForItemAtIndexPath:(NSIndexPath *)indexPath {
-    FXFormBaseView *v = [self formViewForField:[self fieldForIndexPath:indexPath]];
-    return [v.field isCollectionType] || [v.field isOrderedCollectionType];
+    FXFormField *field = [self fieldForIndexPath:indexPath];
+    return [field isCollectionType] || [field isOrderedCollectionType];
 }
 
 - (void)collectionView:(__unused UICollectionView *)collectionView performAction:(__unused SEL)action forItemAtIndexPath:(__unused NSIndexPath *)indexPath withSender:(__unused id)sender {

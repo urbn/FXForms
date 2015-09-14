@@ -597,12 +597,15 @@
         [UIView beginAnimations:nil context:nil];
         [UIView setAnimationCurve:(UIViewAnimationCurve)keyboardInfo[UIKeyboardAnimationCurveUserInfoKey]];
         [UIView setAnimationDuration:[keyboardInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue]];
-        self.scrollView.contentInset = tableContentInset;
-        self.scrollView.scrollIndicatorInsets = tableScrollIndicatorInsets;
         NSIndexPath *indexPath = [self indexPathForField:cell.field];
         [self performUIChange:^(UITableView *tableView) {
+            self.scrollView.contentInset = tableContentInset;
+            self.scrollView.scrollIndicatorInsets = tableScrollIndicatorInsets;
             [tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
         } collection:^(UICollectionView *collectionView) {
+            [collectionView.collectionViewLayout invalidateLayout];
+            self.scrollView.contentInset = tableContentInset;
+            self.scrollView.scrollIndicatorInsets = tableScrollIndicatorInsets;
             [collectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionBottom animated:NO];
         }];
         [UIView commitAnimations];

@@ -50,11 +50,6 @@
         [self resignFirstResponder];
     }
     [formController deselectRowAtIndexPath:nil animated:YES];
-    
-    // Update the currentResponderCell on the formController
-    NSIndexPath *indexPathForCell = [self.field.formController indexPathForField:self.field];
-    id <FXFormFieldCell> currentCell = [self.field.formController cellForRowAtIndexPath:indexPathForCell];
-    self.field.formController.currentResponderCell = currentCell;
 }
 
 #pragma mark - Responder chain

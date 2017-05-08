@@ -59,6 +59,11 @@
 
 #pragma mark - Responder chain
 - (BOOL)canBecomeFirstResponder {
+    // This is necessary to set currentResponderCell in the case that the user tabs into the field rather than manually selecting it.
+    NSIndexPath *indexPathForCell = [self.field.formController indexPathForField:self.field];
+    id <FXFormFieldCell> currentCell = [self.field.formController cellForRowAtIndexPath:indexPathForCell];
+    self.field.formController.currentResponderCell = currentCell;
+    
     return YES;
 }
 

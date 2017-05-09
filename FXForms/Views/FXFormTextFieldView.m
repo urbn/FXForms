@@ -177,10 +177,6 @@
     return YES;
 }
 
-- (void)textFieldDidBeginEditing:(__unused UITextField *)textField {
-    [self.textField selectAll:nil];
-}
-
 - (void)textDidChange {
     [self updateFieldValue];
 }

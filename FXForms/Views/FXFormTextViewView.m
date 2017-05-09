@@ -116,7 +116,6 @@
 }
 
 - (void)textViewDidBeginEditing:(__unused UITextView *)textView {
-    [self.textView selectAll:nil];
     
     // Update the currentResponderCell on the formController
     NSIndexPath *indexPathForCell = [self.field.formController indexPathForField:self.field];
